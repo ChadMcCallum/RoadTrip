@@ -27,8 +27,8 @@
 
     $('#form-submit').click(function () {
         var food = ($("#checkbox-food").attr("checked") == "checked") ? $("#value-food").val() : 0;
-        var gas = ($("#checkbox-food").attr("checked") == "checked") ? $("#value-gas").val() : 0;
-        var hotel = ($("#checkbox-food").attr("checked") == "checked") ? $("#value-hotel").val() : 0;
+        var gas = ($("#checkbox-gas").attr("checked") == "checked") ? $("#value-gas").val() : 0;
+        var hotel = ($("#checkbox-hotel").attr("checked") == "checked") ? $("#value-hotel").val() : 0;
         var other = ($("#checkbox-other").attr("checked") == "checked") ? $("#value-other").val() : "";
 
         var url = "mapindex.html?" +
