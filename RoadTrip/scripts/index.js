@@ -1,7 +1,7 @@
 ﻿function getDirections() {
     var request = {
-        origin: "Vancouver, BC",
-        destination: "Regina, SK",
+        origin: getParameterByName("o"),
+        destination: getParameterByName("d"),
         travelMode: google.maps.TravelMode.DRIVING
     };
     directionsService.route(request, function (result, status) {
@@ -16,12 +16,19 @@
 }
 
 gloablSpeedInKmPerHour = 60.0;
-
-
+var map;
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 
 function init() {
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+        zoom: 8,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
 
@@ -80,3 +87,7 @@ function getBusinessesAtPoint(type, lat, long) {
         }
     });
 }
+
+$(document).ready(function () {
+    init();
+});

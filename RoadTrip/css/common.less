@@ -1,0 +1,26 @@
+﻿@page-width: 1020px;
+
+@font-family-logo: 'FinderRegular';
+@font-family-default: 'Verdana';
+@font-size-logo: 80px;
+@font-size-default: 12px;
+
+@color-blue-dark: #054A64;
+@color-blue: #1755A3;
+@color-red: #F58710;
+
+/* Utility */
+.clear { clear: both; }
+
+/* Header */
+#header { background: @color-blue; clear: both; }
+#header .logo { margin-left: 15px; margin-bottom: 10px; }
+.logo-partA, .logo-partB { font-size: @font-size-logo; font-family: @font-family-logo; }
+.logo-partA { color: #FFF; }
+.logo-partB { color: @color-red; }
+
+/* body */
+html, body { height: 100%; font-family: @font-family-default; }
+.title { font-size: 110%; font-weight: bold; }
+
+#content { width: @page-width; margin: 0px auto; }
