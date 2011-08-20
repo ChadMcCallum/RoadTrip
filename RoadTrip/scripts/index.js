@@ -45,7 +45,12 @@ var getBusinesses = function (result, stop) {
             address: e.address
         });
     });
-};
+}
+
+var createMarker(lat, lng) {
+    var point = new google.maps.LatLng(lat, lng);
+    var marker = new google.maps.Marker({ position: point, map: map, visible: true });
+}
 
 function calculateStops(route) {
     var totalDistance = 0;
@@ -94,6 +99,7 @@ function getBusinessesAtStop(stop, callback) {
         lat: stop.position.lat(),
         lng: stop.position.lng()
     };
+    createMarker(data.lat, data.lng);
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
