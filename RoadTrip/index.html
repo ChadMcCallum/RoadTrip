@@ -24,26 +24,64 @@
         </div>
         <div class="clear"></div>
 
-        <div id="content">
-            <span class="title">Enter an Origin and Destination for your trip</span>
-
-            <div class="origin-div">
-                <input id="input-origin" type="text" value="Origin" />
-            </div>
+        <div id="content-container" class="vertical-align-container"><div class="vertical-align-center">
+            <div id="content">
+                <div id="origin-div">
+                    <div>I'm leaving from ...</div>
+                    <input id="input-origin" type="text" value="Origin..." />
+                </div>
             
-            <div class="destination-div">
-                <input id='input-destination' type="text" value="Destination" />
-            </div>
+                <div id="destination-div">
+                    <div>and going to ...</div>
+                    <input id='input-destination' type="text" value="Destination..." />
+                </div>
 
-            <div id="advanced">
-                <h3><a href="#">First header</a></h3>
-                <div>First content</div>
-                <h3><a href="#">Second header</a></h3>
-                <div>Second content</div>
-            </div>
+                <input id="form-submit" type="submit" value="Plan It!"  style="padding: 10px;"/>
+                <div class="clear"></div>
+            
+                <div id="advanced-div">
+                    <div id="advanced-show" class="clickable">
+                        <div title=".ui-icon-plus" class="align-left">
+                            <span class="ui-icon ui-icon-plus"></span>
+                        </div>
 
-            <input id="form-submit" type="submit" value="Plan It!" />
-        </div>
+                        <span id="label-advanced" class="align-left">Advanced</span>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div id="advanced-content" style="display: none;">
+                        <span class="instruction-text">Show results for:</span><br /><br />
+
+                        <div class="option-row">
+                            <div class="option-checkbox inline">
+                                <input id="checkbox-food" type="checkbox" checked="checked" />
+                                <label for="checkbox-food">Restaurants</label>
+                            </div>
+
+                            <div class="option-checkbox inline">
+                                <input id="checkbox-gas" type="checkbox" checked="checked" />
+                                <label for="checkbox-gas">Gas</label>
+                            </div>
+
+                            <div class="option-checkbox inline">
+                                <input id="checkbox-hotel" type="checkbox" checked="checked" />
+                                <label for="checkbox-hotel">Hotels</label><br />
+                            </div>
+                        </div>
+
+                        <input id="checkbox-other" type="checkbox" />
+                        <label for="checkbox-other">Other:</label>
+                        <input id="value-other" type="text" disabled="disabled" />
+                        
+                        <br /><br />
+                        <div><div class="instruction-text inline">Your Mileage</div> <input id="value-gas" type="text" class="inline" value="500" /> kms</div>
+                        <div><div class="instruction-text inline">How Often To Stop</div> <input id="value-food" type="text" class="inline" value="4" /> hours</div>
+                        <div><div class="instruction-text inline">How Long You Want To Drive</div> <input id="value-hotel" type="text" class="inline" value="8"/> hours</div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div></div>
         
         <script type="text/javascript" src="scripts/index-page.js"></script>
     </body>
