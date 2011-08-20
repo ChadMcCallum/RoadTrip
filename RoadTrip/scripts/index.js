@@ -90,7 +90,9 @@ var getBusinesses = function (result, stopPoint) {
 var rollback = 25000;
 var retryStop = function (stop, result) {
     stop.offset = stop.offset - rollback;
-    stop.position = getCoordinateXMetersIntoTrip(stop.offset, route.legs[0].steps);
+    var computeResult = getCoordinateXMetersIntoTrip(stop.offset, route.legs[0].steps);
+    stop.position = computeResult.position;
+    stop.stepIdx = computeResult.stepIdx;
     getBusinessesAtStop(stop, getBusinesses, retryStop);
 }
 
@@ -111,29 +113,45 @@ function calculateStops(route) {
     if (milage > 0) {
         var gasStops = [];
         for (var i = milage; i < totalDistance; i += milage) {
-            var position = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
-            gasStops.push(createStop(position, 'gasoline', i));
+            var result = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
+            var stop = createStop(result.position, result.stepIdx, 'gasoline', i);
+            if (!route.legs[0].steps[result.stepIdx].RoadTripGasStops) {
+                route.legs[0].steps[result.stepIdx].RoadTripGasStops = [];
+            }
+            route.legs[0].steps[result.stepIdx].RoadTripGasStops.push(stop);
+            gasStops.push(stop);
         }
     }
     if (stopTime > 0) {
         var foodStops = [];
         for (var i = stopTime; i < totalDistance; i += stopTime) {
-            var position = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
-            foodStops.push(createStop(position, 'food', i));
+            var result = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
+            var stop = createStop(result.position, result.stepIdx, 'food', i);
+            if (!route.legs[0].steps[result.stepIdx].RoadTripFoodStops) {
+                route.legs[0].steps[result.stepIdx].RoadTripFoodStops = [];
+            }
+            route.legs[0].steps[result.stepIdx].RoadTripFoodStops.push(stop);
+            foodStops.push(stop);
         }
     }
     if (driveTime > 0) {
         var hotelStops = [];
         for (var i = driveTime; i < totalDistance; i += driveTime) {
-            var position = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
-            hotelStops.push(createStop(position, 'hotel', i));
+            var result = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
+            var stop = createStop(result.position, result.stepIdx, 'hotel', i);
+            if (!route.legs[0].steps[result.stepIdx].RoadTripHotelStops) {
+                route.legs[0].steps[result.stepIdx].RoadTripHotelStops = [];
+            }
+            route.legs[0].steps[result.stepIdx].RoadTripHotelStops.push(stop);
+            hotelStops.push(createStop(result.position, result.stepIdx, 'hotel', i));
         }
     }
 }
 
-function createStop(position, type, offset) {
+function createStop(position, stepIdx, type, offset) {
     var stop = {
         position: position,
+        stepIdx : stepIdx,
         type: type,
         options: [],
         offset: offset

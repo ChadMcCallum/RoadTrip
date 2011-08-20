@@ -45,7 +45,11 @@ function getCoordinateXMetersIntoTrip(meters, steps) {
 
     var resultLat = google.maps.geometry.spherical.interpolate(startLat, endLat, lerpRatio);
 
-    return resultLat;
+    var results = {
+        position: resultLat,
+        stepIdx: stepIdxToStartLerp
+    };
+    return results;
 }
 
 function getCoordXSecondsIntoTrip(seconds, steps) {
