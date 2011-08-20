@@ -56,3 +56,10 @@ function getCoordinateXMetersIntoTrip(meters, steps) {
     //console.log(resultLat.toString());
     return resultLat;
 }
+
+function getCoordXSecondsIntoTrip(seconds, steps) {
+    var kSpeed = kmPerHourToMetersPerSecond(100);
+
+    var distanceTravelled = seconds * kSpeed;
+    return getCoordinateXMetersIntoTrip(distanceTravelled, steps);
+}
