@@ -4,13 +4,10 @@
         return false;
     });
 
-    $("#checkbox-other").live('change', function (evt) {
-        if ($(evt.currentTarget).attr("checked"))
-            $("#input-other").removeAttr("disabled");
-        else {
-            $("#input-other").attr("disabled", "disabled");
-        }
-    });
+    disableOnCheck("#checkbox-other", "#value-other");
+    disableOnCheck("#checkbox-food", "#value-food");
+    disableOnCheck("#checkbox-gas", "#value-gas");
+    disableOnCheck("#checkbox-hotel", "#value-hotel");
 
     $("#input-origin, #input-destination").focus(function () {
         if ($(this).val().toLowerCase() === "origin..." || $(this).val().toLowerCase() === "destination...") {
@@ -42,3 +39,15 @@
         window.location.href = url;
     });
 });
+
+function disableOnCheck(checkbox, input) {
+
+    $(checkbox).live('change', function (evt) {
+        if ($(evt.currentTarget).attr("checked"))
+            $(input).removeAttr("disabled");
+        else {
+            $(input).attr("disabled", "disabled");
+        }
+    });
+
+}
