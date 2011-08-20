@@ -15,6 +15,9 @@
     });
 }
 
+gloablSpeedInKmPerHour = 60.0;
+
+
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 
