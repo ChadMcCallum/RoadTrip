@@ -42,6 +42,48 @@
         
         <script type="text/javascript" src="scripts/index-page.js"></script>
     </body>
-    <script type='text/x-jquery-tmpl'>
+    <script type='text/x-jquery-tmpl' id='step-template'>
+        <div>
+            <div class='column-direction'>
+                ${instructions}
+            </div>
+            <div class='column-distance'>
+                ${distance}
+            </div>
+        </div>
+    </script>
+    <script type='text/x-jquery-tmpl' id='gas-stop-template'>
+        <div>
+            <div class='column-type'>
+                Gas Stop
+            </div>
+            <div>
+                {{each options}}
+                <div class='column-name' onclick='setMapPosition(${marker.getPosition()})'>
+                    ${name}
+                </div>
+                <div class='column-value'>
+                    Estimated $/L: ${gasPrice}
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </script>
+    <script type='text/x-jquery-tmpl' id='food-stop-template'>
+        <div>
+            <div class='column-type'>
+                Food Stop
+            </div>
+            <div>
+                {{each options}}
+                <div class='column-name' onclick='setMapPosition(${marker.getPosition()})'>
+                    ${name}
+                </div>
+                <div class='colum-value'>
+                    Average Rating: ${rating}
+                </div>
+                {{/each}}
+            </div>
+        </div>
     </script>
 </html>
