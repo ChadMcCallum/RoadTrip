@@ -38,10 +38,18 @@ function init() {
     getDirections();
 }
 
-var getBusinesses = function (result, stop) {
+var getBusinesses = function (result, stopPoint) {
+    var stop = stopPoint;
     $.each(result.listings, function (i, e) {
         var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
-        var marker = new google.maps.Marker({ position: point, map: map, visible: true, title: e.name });
+        var marker;
+        if (stop.type == 'gasoline') {
+            marker = gasMarker(map, point);
+        } else if (stop.type == 'food') {
+            marker = foodMarker(map, point);
+        } else {
+            marker = hotelMarker(map, point);
+        }
         stop.options.push({
             marker: marker,
             name: e.name,
@@ -118,10 +126,11 @@ function getBusinessesAtStop(stop, callback, error) {
             if (result.errorCode) {
                 error(stop, result);
             }
-            callback(result);
+            callback(result, stop);
         }
     });
 }
+
 $(document).ready(function () {
     init();
 });

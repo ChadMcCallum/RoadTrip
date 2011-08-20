@@ -1,8 +1,8 @@
 
 
 function printDirectionStep(step) {
-    console.log(step.duration.text + " " + step.duration.value + " " + step.distance.text +
-    " " + step.start_location.toString());
+//    console.log(step.duration.text + " " + step.duration.value + " " + step.distance.text +
+//    " " + step.start_location.toString());
 }
 
 function kmPerHourToMetersPerSecond(kmh) {
@@ -53,6 +53,6 @@ function getCoordinateXMetersIntoTrip(meters, steps) {
         var polyline = steps[i].polyline;
         var path = google.maps.geometry.encoding.decodePath(polyline.points);
     }
-    console.log(resultLat.toString());
+    //console.log(resultLat.toString());
     return resultLat;
 }
