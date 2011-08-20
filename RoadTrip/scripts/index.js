@@ -222,3 +222,7 @@ function getGasPrice(location, success) {
 $(document).ready(function () {
     init();
 });
+
+function SetMapPosition(latLng) {
+    map.panTo(latLng);
+}
