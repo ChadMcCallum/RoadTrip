@@ -100,6 +100,8 @@
                         </div>
                     </div>
                 </div>
+                <div class="clear"></div>
+
                 <div id='steps'>
                 </div>
             </div>
@@ -118,16 +120,16 @@
     </body>
     <script type='text/x-jquery-tmpl' id='step-template'>
         <div>
-            <div class='column-direction'>
-                {{html instructions}}
+            <div class='column-distance inline'>
+                (${distance.text})
             </div>
-            <div class='column-distance'>
-                ${distance.text}
+            <div class='column-direction inline'>
+                {{html instructions}}
             </div>
         </div>
     </script>
     <script type='text/x-jquery-tmpl' id='gas-stop-template'>
-        <div>
+        <div class='option-row'>
             <div class='column-type'>
                 Gas Stop
             </div>
@@ -136,9 +138,11 @@
                 <div class='column-name' onclick='setMapPosition(${marker.getPosition()})'>
                     ${name}
                 </div>
-                <div class='column-value'>
-                    Estimated $/L: ${gasPrice}
-                </div>
+                {{if (gasPrice)}}
+                    <div class='column-value'>
+                        Estimated $/L: ${gasPrice}
+                    </div>
+                {{/if}}
                 {{/each}}
             </div>
         </div>
@@ -153,9 +157,11 @@
                 <div class='column-name' onclick='setMapPosition(${marker.getPosition()})'>
                     ${name}
                 </div>
-                <div class='colum-value'>
-                    Average Rating: ${rating}
-                </div>
+                {{if (rating)}}
+                    <div class='colum-value'>
+                        Average Rating: ${rating}
+                    </div>
+                {{/if}}
                 {{/each}}
             </div>
         </div>
@@ -170,9 +176,11 @@
                 <div class='column-name' onclick='setMapPosition(${marker.getPosition()})'>
                     ${name}
                 </div>
-                <div class='colum-value'>
-                    Average Rating: ${rating}
-                </div>
+                {{if (rating)}}
+                    <div class='colum-value'>
+                        Average Rating: ${rating}
+                    </div>
+                {{/if}}
                 {{/each}}
             </div>
         </div>
