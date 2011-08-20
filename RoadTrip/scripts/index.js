@@ -35,6 +35,8 @@ function init() {
     parseParams();
 
     getDirections();
+    
+    
 }
 
 function parseParams() {
