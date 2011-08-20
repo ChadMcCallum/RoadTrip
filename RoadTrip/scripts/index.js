@@ -10,7 +10,7 @@
             var lastLeg = result.routes[0].legs[result.routes[0].legs.length - 1];
             var lastStep = lastLeg.steps[lastLeg.steps.length - 1];
             var lastPoint = lastStep.end_location;
-            getBusinessesAtPoint("pizza", lastPoint.lat(), lastPoint.lng());
+            calculateStops(route);
         }
     });
 }
@@ -43,28 +43,49 @@ function calculateStops(route) {
         return leg.Duration.value;
     });
     var startTime = 8 * 60 * 60;
+    var getBusinesses = function (result, stop) {
+        $.each(result.listings, function (i, e) {
+            var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
+            var marker = new google.maps.Marker({ position: point, map: map, visible: true });
+            stop.options.push({
+                marker: marker,
+                name: e.name,
+                address: e.address
+            });
+        });
+    };
 
     var defaultMilage = 400000;
     var gasStops = [];
     for (var i = defaultMilage; i < totalDistance; i += defaultMilage) {
         var position = getPositionForDistance(i, route);
-        gasStop.push(position);
+        gasStops.push(createStop(position, 'gasoline'));
     }
     var foodStops = [];
     var defaultFoodDuration = 4 * 60 * 60;
     for (var i = defaultFoodDuration; i < totalDuration; i += defaultFoodDuration) {
         var position = getPositionForTime(i, route);
-        foodStops.push(position);
+        gasStops.push(createStop(position, 'food'));
     }
     var hotelStops = [];
     var defaultDriveDuration = 8 * 60 * 60;
     for (var i = defaultDriveDuration; i < totalDuration; i += defaultDriveDuration) {
         var position = getPositionForTime(i, route);
-        hotelStops.push(position);
+        gasStops.push(createStop(position, 'hotel'));
     }
 }
 
-function getBusinessesAtPoint(type, lat, long) {
+function createStop(position, type) {
+    var stop = {
+        position: position,
+        type: type,
+        options: []
+    };
+    getBusinessesAtStop(stop, getBusinesses);
+    return stop;
+}
+
+function getBusinessesAtStop(stop, callback) {
     var data = {
         search: type,
         lat: lat,
@@ -78,16 +99,10 @@ function getBusinessesAtPoint(type, lat, long) {
         dataType: "json",
         success: function (data) {
             var result = JSON.parse(data.d);
-            $.each(result.listings, function (i, e) {
-                if (i < 3) {
-                    var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
-                    var marker = new google.maps.Marker({ position: point, map: map });
-                }
-            });
+            callback(result);
         }
     });
 }
-
 $(document).ready(function () {
     init();
 });
