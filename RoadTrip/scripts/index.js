@@ -7,13 +7,16 @@
     directionsService.route(request, function (result, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(result);
-//            var lastLeg = result.routes[0].legs[result.routes[0].legs.length - 1];
-//            var lastStep = lastLeg.steps[lastLeg.steps.length - 1];
-//            var lastPoint = lastStep.end_location;
+            route = result.routes[0];
+            //            var lastLeg = result.routes[0].legs[result.routes[0].legs.length - 1];
+            //            var lastStep = lastLeg.steps[lastLeg.steps.length - 1];
+            //            var lastPoint = lastStep.end_location;
             calculateStops(result.routes[0]);
         }
     });
 }
+
+var route;
 
 gloablSpeedInKmPerHour = 60.0;
 var map;
@@ -38,7 +41,7 @@ function init() {
 var getBusinesses = function (result, stop) {
     $.each(result.listings, function (i, e) {
         var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
-        var marker = new google.maps.Marker({ position: point, map: map, visible: true });
+        var marker = new google.maps.Marker({ position: point, map: map, visible: true, title: e.name });
         stop.options.push({
             marker: marker,
             name: e.name,
@@ -47,9 +50,11 @@ var getBusinesses = function (result, stop) {
     });
 }
 
-var createMarker(lat, lng) {
-    var point = new google.maps.LatLng(lat, lng);
-    var marker = new google.maps.Marker({ position: point, map: map, visible: true });
+var rollback = 50000;
+var retryStop = function (stop, result) {
+    stop.offset = stop.offset - rollback;
+    stop.position = getCoordinateXMetersIntoTrip(stop.offset, route.legs[0].steps);
+    getBusinessesAtStop(stop, getBusinesses, retryStop);
 }
 
 function calculateStops(route) {
@@ -67,39 +72,41 @@ function calculateStops(route) {
     var gasStops = [];
     for (var i = defaultMilage; i < totalDistance; i += defaultMilage) {
         var position = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
-        gasStops.push(createStop(position, 'gasoline'));
+        gasStops.push(createStop(position, 'gasoline', i));
     }
     var foodStops = [];
     var defaultFoodDuration = 4 * 60 * 60;
-    for (var i = defaultFoodDuration; i < totalDuration; i += defaultFoodDuration) {
-//        var position = getPositionForTime(i, route);
-//        foodStops.push(createStop(position, 'food'));
+    var distanceFood = 4 * 100000;
+    for (var i = distanceFood; i < totalDistance; i += distanceFood) {
+        var position = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
+        foodStops.push(createStop(position, 'food', i));
     }
     var hotelStops = [];
     var defaultDriveDuration = 8 * 60 * 60;
-    for (var i = defaultDriveDuration; i < totalDuration; i += defaultDriveDuration) {
-//        var position = getPositionForTime(i, route);
-//        hotelStops.push(createStop(position, 'hotel'));
+    var distanceDrive = 8 * 100000;
+    for (var i = distanceDrive; i < totalDistance; i += distanceDrive) {
+        var position = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
+        hotelStops.push(createStop(position, 'hotel', i));
     }
 }
 
-function createStop(position, type) {
+function createStop(position, type, offset) {
     var stop = {
         position: position,
         type: type,
-        options: []
+        options: [],
+        offset: offset
     };
-    getBusinessesAtStop(stop, getBusinesses);
+    getBusinessesAtStop(stop, getBusinesses, retryStop);
     return stop;
 }
 
-function getBusinessesAtStop(stop, callback) {
+function getBusinessesAtStop(stop, callback, error) {
     var data = {
         search: stop.type,
         lat: stop.position.lat(),
         lng: stop.position.lng()
     };
-    createMarker(data.lat, data.lng);
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
@@ -108,6 +115,9 @@ function getBusinessesAtStop(stop, callback) {
         dataType: "json",
         success: function (data) {
             var result = JSON.parse(data.d);
+            if (result.errorCode) {
+                error(stop, result);
+            }
             callback(result);
         }
     });

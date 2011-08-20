@@ -1,0 +1,44 @@
+// Google Map Custom Marker Maker 2011
+// Please include the following credit in your code
+
+// Sample custom marker code created with Google Map Custom Marker Maker
+// http://www.powerhut.co.uk/googlemaps/custom_markers.php
+
+var point = new google.maps.LatLng(50.875311, 0.351563);
+
+var myMapOptions = {
+  zoom: 5,
+  center: point,
+  mapTypeId: google.maps.MapTypeId.TERRAIN
+};
+
+var map = new google.maps.Map(document.getElementById("map"),myMapOptions);
+
+var image = new google.maps.MarkerImage(
+  'marker-images/image.png',
+  new google.maps.Size(64,64),
+  new google.maps.Point(0,0),
+  new google.maps.Point(0,64)
+);
+
+var shadow = new google.maps.MarkerImage(
+  'marker-images/shadow.png',
+  new google.maps.Size(100,64),
+  new google.maps.Point(0,0),
+  new google.maps.Point(0,64)
+);
+
+var shape = {
+  coord: [0,0,64,64],
+  type: 'rect'
+};
+
+var marker = new google.maps.Marker({
+  draggable: true,
+  raiseOnDrag: false,
+  icon: image,
+  shadow: shadow,
+  shape: shape,
+  map: map,
+  position: point
+});

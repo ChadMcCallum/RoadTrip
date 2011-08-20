@@ -31,8 +31,8 @@ namespace RoadTrip.services
         {
             WebClient client = new WebClient();
             var userid = r.Next();
-            lng = lng*-1;
-            var address = string.Format("http://api.yellowapi.com/FindBusiness/?what={0}&where=cZ{1},{2}&apikey=jpa5r23f78vun3btzjvvwmk5&UID={3}&fmt=json", search, lng, lat, userid);
+                                              //api.yellowapi.com/FindBusiness/?pg=1&what=gas&lang=en&where=cZ-119.837308212876%2C50.7750245961957&pgLen=40&fmt=JSON&UID=qwer&apikey=jpa5r23f78vun3btzjvvwmk5
+            var address = string.Format("http://api.yellowapi.com/FindBusiness/?pg=1&what={0}&lang=en&where=cZ{1},{2}&pgLen=5&fmt=JSON&UID={3}&apikey=jpa5r23f78vun3btzjvvwmk5", search, lng, lat, userid);
             var result = client.DownloadString(address);
             return result;
         }
