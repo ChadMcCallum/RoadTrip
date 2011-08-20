@@ -59,6 +59,7 @@
     <Content Include="scripts\libs\jquery-1.6.2.min.js" />
     <Content Include="scripts\libs\less-1.1.3.min.js" />
     <Content Include="scripts\maps.js" />
+    <Content Include="services\yellowproxy.asmx" />
     <Content Include="web.config" />
     <Content Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
@@ -66,9 +67,14 @@
     <Content Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </Content>
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="services\yellowproxy.asmx.cs">
+      <DependentUpon>yellowproxy.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
