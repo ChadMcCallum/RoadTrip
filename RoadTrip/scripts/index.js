@@ -107,7 +107,7 @@ function calculateStops(route) {
             foodStops.push(createStop(position, 'food', i));
         }
     }
-    if (hotelStops > 0) {
+    if (driveTime > 0) {
         var hotelStops = [];
         for (var i = driveTime; i < totalDistance; i += driveTime) {
             var position = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
