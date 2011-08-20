@@ -36,5 +36,29 @@ namespace RoadTrip.services
             var result = client.DownloadString(address);
             return result;
         }
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat=ResponseFormat.Json)]
+        public string GetBusinessReviews(string name, string address)
+        {
+            WebClient client = new WebClient();
+
+            //http://api.yelp.com/business_review_search?term=cream%20puffs&location=650%20Mission%20St%2ASan%20Francisco%2A%20CA&ywsid=XXXXXXXXXXXXXXXX
+            var url = string.Format("http://api.yelp.com/business_review_search?term={0}&location={1}&ywsid=hcTM5_luivTPrXlsttKMHQ", name, address);
+            var result = client.DownloadString(url);
+            return result;
+        }
+
+        [WebMethod]
+        [ScriptMethod]
+        public string GetGasPrice(double lat, double lng)
+        {
+            WebClient client = new WebClient();
+            ///stations/radius/47.9494949/120.23423432/distance/reg|mid|pre|diesel/price|distance/apikey.json?callback=?
+
+            var url = string.Format("http://devapi.mygasfeed.com/stations/radius/{0}/{1}/5/reg/distance/rfej9napna.json", lat, lng);
+            var result = client.DownloadString(url);
+            return result;
+        }
     }
 }

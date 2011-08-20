@@ -71,6 +71,22 @@
     <Content Include="css\jquery-ui-1.8.16.custom.css" />
     <Content Include="index.html" />
     <Content Include="mapindex.html" />
+    <Content Include="markers\food\demo.html" />
+    <Content Include="markers\food\extras\combined.png" />
+    <Content Include="markers\food\extras\sprite.png" />
+    <Content Include="markers\food\marker-images\image.png" />
+    <Content Include="markers\food\marker-images\shadow.png" />
+    <Content Include="markers\gas\demo.html" />
+    <Content Include="markers\gas\extras\combined.png" />
+    <Content Include="markers\gas\extras\sprite.png" />
+    <Content Include="markers\gas\marker-images\image.png" />
+    <Content Include="markers\gas\marker-images\shadow.png" />
+    <Content Include="markers\hotel\demo.html" />
+    <Content Include="markers\hotel\extras\combined.png" />
+    <Content Include="markers\hotel\extras\sprite.png" />
+    <Content Include="markers\hotel\marker-images\image.png" />
+    <Content Include="markers\hotel\marker-images\shadow.png" />
+    <Content Include="markers\markers.js" />
     <Content Include="overview.txt" />
     <Content Include="scripts\index.js" />
     <Content Include="scripts\libs\jquery-1.6.2.min.js" />
@@ -87,6 +103,9 @@
     <Content Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </Content>
+    <None Include="markers\food\sample-code.text" />
+    <None Include="markers\gas\sample-code.text" />
+    <None Include="markers\hotel\sample-code.text" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

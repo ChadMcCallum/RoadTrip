@@ -8,9 +8,6 @@
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(result);
             route = result.routes[0];
-            //            var lastLeg = result.routes[0].legs[result.routes[0].legs.length - 1];
-            //            var lastStep = lastLeg.steps[lastLeg.steps.length - 1];
-            //            var lastPoint = lastStep.end_location;
             calculateStops(result.routes[0]);
         }
     });
@@ -24,7 +21,7 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 
 function init() {
-    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var latlng = new google.maps.LatLng(49.261307, -123.113537);
     var myOptions = {
         zoom: 8,
         center: latlng,
@@ -42,7 +39,7 @@ function init() {
 
 function parseParams() {
     if (getParameterByName("gas")) {
-        milage = getParameterByName("gas");
+        milage = getParameterByName("gas") * 1000;
     }
     if (getParameterByName("food")) {
         stopTime = getParameterByName("food") * 100000;
@@ -57,18 +54,34 @@ var getBusinesses = function (result, stopPoint) {
     $.each(result.listings, function (i, e) {
         var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
         var marker;
-        if (stop.type == 'gasoline') {
-            marker = gasMarker(map, point);
-        } else if (stop.type == 'food') {
-            marker = foodMarker(map, point);
-        } else {
-            marker = hotelMarker(map, point);
-        }
-        stop.options.push({
+        var business = {
             marker: marker,
             name: e.name,
             address: e.address
-        });
+        };
+        if (stop.type == 'gasoline') {
+            marker = gasMarker(map, point);
+            getGasPrice(point, function (result) {
+                if (result.stations.length > 0) {
+                    business.gasPrice = result.stations[0].reg_price;
+                }
+            });
+        } else if (stop.type == 'food') {
+            marker = foodMarker(map, point);
+            getBusinessReviews(business, function (result) {
+                if (result.businesses.length > 0) {
+                    business.rating = result.businesses[0].avg_rating;
+                }
+            });
+        } else {
+            marker = hotelMarker(map, point);
+            getBusinessReviews(business, function (result) {
+                if (result.businesses.length > 0) {
+                    business.rating = result.businesses[0].avg_rating;
+                }
+            });
+        }
+        stop.options.push(business);
     });
 }
 
@@ -127,7 +140,7 @@ function createStop(position, type, offset) {
     return stop;
 }
 
-function getBusinessesAtStop(stop, callback, error) {
+function getBusinessesAtStop(stop, success, error) {
     var data = {
         search: stop.type,
         lat: stop.position.lat(),
@@ -144,7 +157,44 @@ function getBusinessesAtStop(stop, callback, error) {
             if (result.errorCode) {
                 error(stop, result);
             }
-            callback(result, stop);
+            success(result, stop);
+        }
+    });
+}
+
+function getBusinessReviews(business, success) {
+    var address = business.address.street + ", " + business.address.city + ", " +
+        business.address.prov + ", " + business.address.pcode;
+    address = encodeURI(address);
+    var data = {
+        name: business.name,
+        address: address
+    };
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        url: "/services/yellowproxy.asmx/GetBusinessReviews",
+        data: "{ name: '" + data.name + "', address: '" + data.address + "'}",
+        dataType: "json",
+        success: function (data) {
+            var result = JSON.parse(data.d);
+            
+            success(result, stop);
+        }
+    });
+}
+
+function getGasPrice(location, success) {
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        url: "/services/yellowproxy.asmx/GetGasPrice",
+        data: "{ lat: " + location.lat() + ", lng: " + location.lng() + "}",
+        dataType: "json",
+        success: function (data) {
+            var result = JSON.parse(data.d);
+            
+            success(result, stop);
         }
     });
 }
