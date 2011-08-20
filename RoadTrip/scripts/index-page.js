@@ -1,6 +1,13 @@
 ﻿$(document).ready(function () {
     $('#advanced-show').click(function () {
         $("#advanced-content").slideToggle(200);
+
+        var $icon = $("#advanced-expando-icon");
+        if ($icon.hasClass("ui-icon-plus"))
+            $icon.removeClass("ui-icon-plus").addClass("ui-icon-minus");
+        else
+            $icon.removeClass("ui-icon-minus").addClass("ui-icon-plus");
+
         return false;
     });
 

@@ -56,6 +56,7 @@
     <None Include="css\fonts\finder-webfont.woff" />
     <Content Include="css\fonts.css" />
     <Content Include="css\fonts\finder-webfont.svg" />
+    <Content Include="css\images\poweredby.gif" />
     <Content Include="css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="css\images\ui-bg_flat_55_fbec88_40x100.png" />
     <Content Include="css\images\ui-bg_glass_75_d0e5f5_1x400.png" />
@@ -103,6 +104,7 @@
     <Content Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </Content>
+    <None Include="css\index.less" />
     <None Include="markers\food\sample-code.text" />
     <None Include="markers\gas\sample-code.text" />
     <None Include="markers\hotel\sample-code.text" />
