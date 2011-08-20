@@ -14,7 +14,12 @@
 }
 
 function clearMap() {
-    
+    for (i = 0; i < globalMarkerArray.length; i = i + 1) {
+        globalMarkerArray[i].setMap(null);
+    }
+    for (i = 0; i < globalMarkerArray.length; i = i + 1) {
+        globalMarkerArray.pop();
+    }
 }
 
 function getNewDirections() {

@@ -17,14 +17,18 @@ var foodShape = {
     type: 'rect'
 };
 
+var globalMarkerArray = [];
+
 function foodMarker(map, position) {
-    return new google.maps.Marker({
+    var marker = new google.maps.Marker({
         icon: foodImage,
         shadow: foodShadow,
         shape: foodShape,
         map: map,
         position: position
     });
+    globalMarkerArray.push(marker);
+    return marker;
 }
 
 var gasImage = new google.maps.MarkerImage(
@@ -47,13 +51,15 @@ var gasShape = {
 };
 
 function gasMarker(map, position) {
-    return new google.maps.Marker({
+var marker = new google.maps.Marker({
         icon: gasImage,
         shadow: gasShadow,
         shape: gasShape,
         map: map,
         position: position
     });
+    globalMarkerArray.push(marker);
+    return marker;
 }
 
 var hotelImage = new google.maps.MarkerImage(
@@ -76,11 +82,13 @@ var hotelShape = {
 };
 
 function hotelMarker(map, position) {
-    return new google.maps.Marker({
+    var marker = new google.maps.Marker({
         icon: hotelImage,
         shadow: hotelShadow,
         shape: hotelShape,
         map: map,
         position: position
     });
+    globalMarkerArray.push(marker);
+    return marker;
 }
