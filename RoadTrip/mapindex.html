@@ -100,6 +100,8 @@
                         </div>
                     </div>
                 </div>
+                <div id='steps'>
+                </div>
             </div>
         </div>
 
@@ -110,10 +112,10 @@
     <script type='text/x-jquery-tmpl' id='step-template'>
         <div>
             <div class='column-direction'>
-                ${instructions}
+                {{html instructions}}
             </div>
             <div class='column-distance'>
-                ${distance}
+                ${distance.text}
             </div>
         </div>
     </script>
@@ -123,7 +125,7 @@
                 Gas Stop
             </div>
             <div>
-                {{each options}}
+                {{each (options)}}
                 <div class='column-name' onclick='setMapPosition(${marker.getPosition()})'>
                     ${name}
                 </div>
@@ -140,7 +142,24 @@
                 Food Stop
             </div>
             <div>
-                {{each options}}
+                {{each (options)}}
+                <div class='column-name' onclick='setMapPosition(${marker.getPosition()})'>
+                    ${name}
+                </div>
+                <div class='colum-value'>
+                    Average Rating: ${rating}
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </script>
+    <script type='text/x-jquery-tmpl' id='hotel-stop-template'>
+        <div>
+            <div class='column-type'>
+                Hotel Stop
+            </div>
+            <div>
+                {{each (options)}}
                 <div class='column-name' onclick='setMapPosition(${marker.getPosition()})'>
                     ${name}
                 </div>

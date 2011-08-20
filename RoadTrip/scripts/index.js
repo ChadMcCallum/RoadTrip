@@ -33,6 +33,28 @@ function getNewDirections() {
     getDirections();
 }
 
+function displaySteps() {
+    $('#steps').empty();
+    $.each(route.legs[0].steps, function (i, e) {
+        $('#step-template').tmpl(e).appendTo('#steps');
+        if (e.RoadTripGasStops && e.RoadTripGasStops.length > 0) {
+            $.each(e.RoadTripGasStops, function (j, k) {
+                $('#gas-stop-template').tmpl(k).appendTo('#steps');
+            });
+        }
+        if (e.RoadTripFoodStops && e.RoadTripFoodStops.length > 0) {
+            $.each(e.RoadTripFoodStops, function (j, k) {
+                $('#food-stop-template').tmpl(k).appendTo('#steps');
+            });
+        }
+        if (e.RoadTripHotelStops && e.RoadTripHotelStops.length > 0) {
+            $.each(e.RoadTripHotelStops, function (j, k) {
+                $('#hotel-stop-template').tmpl(k).appendTo('#steps');
+            });
+        }
+    });
+}
+
 var route;
 
 gloablSpeedInKmPerHour = 60.0;
@@ -91,7 +113,6 @@ var getBusinesses = function(result, stopPoint) {
         var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
         var marker;
         var business = {
-            marker: marker,
             name: e.name,
             address: e.address
         };
@@ -101,6 +122,7 @@ var getBusinesses = function(result, stopPoint) {
                 if (result.stations.length > 0) {
                     business.gasPrice = result.stations[0].reg_price;
                 }
+                checkUpdate();
             });
         } else if (stop.type == 'food') {
             marker = foodMarker(map, point);
@@ -108,6 +130,7 @@ var getBusinesses = function(result, stopPoint) {
                 if (result.businesses.length > 0) {
                     business.rating = result.businesses[0].avg_rating;
                 }
+                checkUpdate();
             });
         } else {
             marker = hotelMarker(map, point);
@@ -115,8 +138,10 @@ var getBusinesses = function(result, stopPoint) {
                 if (result.businesses.length > 0) {
                     business.rating = result.businesses[0].avg_rating;
                 }
+                checkUpdate();
             });
         }
+        business.marker = marker;
         stop.options.push(business);
     });
 };
@@ -208,6 +233,7 @@ function getBusinessesAtStop(stop, success, error) {
         lat: stop.position.lat(),
         lng: stop.position.lng()
     };
+    pendingAPICalls++;
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
@@ -215,6 +241,7 @@ function getBusinessesAtStop(stop, success, error) {
         data: "{ search: '" + data.search + "', lat: " + data.lat + ", lng: " + data.lng + "}",
         dataType: "json",
         success: function (data) {
+            pendingAPICalls--;
             var result = JSON.parse(data.d);
             if (result.errorCode) {
                 error(stop, result);
@@ -224,6 +251,12 @@ function getBusinessesAtStop(stop, success, error) {
     });
 }
 
+var pendingAPICalls = 0;
+function checkUpdate() {
+    if (pendingAPICalls == 0) {
+        displaySteps();
+    }
+}
 function getBusinessReviews(business, success) {
     var address = business.address.street + ", " + business.address.city + ", " +
         business.address.prov + ", " + business.address.pcode;
@@ -232,6 +265,7 @@ function getBusinessReviews(business, success) {
         name: business.name,
         address: address
     };
+    pendingAPICalls++;
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
@@ -239,6 +273,7 @@ function getBusinessReviews(business, success) {
         data: "{ name: '" + data.name + "', address: '" + data.address + "'}",
         dataType: "json",
         success: function (data) {
+            pendingAPICalls--;
             var result = JSON.parse(data.d);
             
             success(result, stop);
@@ -247,6 +282,7 @@ function getBusinessReviews(business, success) {
 }
 
 function getGasPrice(location, success) {
+    pendingAPICalls++;
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
@@ -254,8 +290,9 @@ function getGasPrice(location, success) {
         data: "{ lat: " + location.lat() + ", lng: " + location.lng() + "}",
         dataType: "json",
         success: function (data) {
+            pendingAPICalls--;
             var result = JSON.parse(data.d);
-            
+
             success(result, stop);
         }
     });
