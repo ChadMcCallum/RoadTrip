@@ -23,6 +23,29 @@ function findStepAtDistance(distance, steps) {
     }
 }
 
+function findPathSegmentAtDistance(distance, paths) {
+    var accumulatedDistance = 0;
+    for (i = 0; i < (paths.length - 1); i = i + 1) {
+        var stepDistanceFromPathStart = accumulatedDistance + google.maps.geometry.spherical.computeDistanceBetween(paths[i], paths[i + 1]);
+        if (stepDistanceFromPathStart > distance) {
+            return i;
+        }
+        accumulatedDistance = stepDistanceFromPathStart;
+    }
+}
+
+function findAccumulatedDistanceUpToPath(pathIdx, paths) {
+    var accumulatedDistance = 0;
+    for (i = 0; i < pathIdx; i = i + 1) {
+        accumulatedDistance = accumulatedDistance + google.maps.geometry.spherical.computeDistanceBetween(paths[i], paths[i + 1]);
+    }
+    return accumulatedDistance;
+}
+
+function findDistanceOfPathSegment(pathIdx, paths) {
+    return google.maps.geometry.spherical.computeDistanceBetween(paths[pathIdx], paths[pathIdx + 1]);
+}
+
 function findAccumulatedDistanceUpToStep(stepNumber, steps) {
     var accumulatedDistance = 0;
     for (i = 0; i < stepNumber; i = i + 1) {
@@ -36,23 +59,37 @@ function getCoordinateXMetersIntoTrip(meters, steps) {
     var accumulatedDistanceStartLerp = findAccumulatedDistanceUpToStep(stepIdxToStartLerp, steps);
 
     var remaining = meters - accumulatedDistanceStartLerp;
-    var lerpRange = steps[i].distance.value;
+    var lerpRange = steps[stepIdxToStartLerp].distance.value;
 
     var lerpRatio = remaining / lerpRange;  // percentage into the step
 
-    var startLat = steps[i].start_location;
-    var endLat = steps[i].end_location;
+    var startLat = steps[stepIdxToStartLerp].start_location;
+    var endLat = steps[stepIdxToStartLerp].end_location;
 
+    // crude lerp
     var resultLat = google.maps.geometry.spherical.interpolate(startLat, endLat, lerpRatio);
 
-    // TODO: debug code
-    for (i = 0; i < steps.length; i = i + 1) {
+    // do finder lerping on polyline
+    var polyline = steps[stepIdxToStartLerp].polyline;
+    var path = google.maps.geometry.encoding.decodePath(polyline.points);
+    var idxPathSegment = findPathSegmentAtDistance(remaining, path);
+    var remainingInsidePath = remaining - findAccumulatedDistanceUpToPath(idxPathSegment, path);
+    var fineLerpRange = findDistanceOfPathSegment(idxPathSegment, path);
+    var fineLerpRatio = remainingInsidePath / fineLerpRange;
 
-        steps[i].distance
-        printDirectionStep(steps[i]);
-        var polyline = steps[i].polyline;
-        var path = google.maps.geometry.encoding.decodePath(polyline.points);
-    }
-    //console.log(resultLat.toString());
-    return resultLat;
+    var pathStartLocation = path[idxPathSegment];
+    var pathEndLocation = path[idxPathSegment + 1];
+    var fineResultLat = google.maps.geometry.spherical.interpolate(pathStartLocation, pathEndLocation, fineLerpRatio);
+
+//    console.log("path length: " + google.maps.geometry.spherical.computeLength(path));
+//    console.log("step distance: " + steps[stepIdxToStartLerp].distance.value);
+//    var verifyLength = 0;
+//    for (j = 0; j < path.length - 1; j = j + 1) {
+//        verifyLength = verifyLength + google.maps.geometry.spherical.computeDistanceBetween(path[j], path[j + 1]);
+//    }
+//    console.log("verify path length: " + verifyLength);
+
+    console.log("crudeResult: " + resultLat.toString());
+    console.log("fineResult: " + fineResultLat.toString());
+    return fineResultLat;
 }
