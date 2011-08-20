@@ -35,7 +35,21 @@ function init() {
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
 
+    parseParams();
+
     getDirections();
+}
+
+function parseParams() {
+    if (getParameterByName("gas")) {
+        milage = getParameterByName("gas");
+    }
+    if (getParameterByName("food")) {
+        stopTime = getParameterByName("food") * 100000;
+    }
+    if (getParameterByName("hotel")) {
+        driveTime = getParameterByName("hotel") * 100000;
+    }
 }
 
 var getBusinesses = function (result, stopPoint) {
@@ -58,13 +72,16 @@ var getBusinesses = function (result, stopPoint) {
     });
 }
 
-var rollback = 50000;
+var rollback = 25000;
 var retryStop = function (stop, result) {
     stop.offset = stop.offset - rollback;
     stop.position = getCoordinateXMetersIntoTrip(stop.offset, route.legs[0].steps);
     getBusinessesAtStop(stop, getBusinesses, retryStop);
 }
 
+var milage = 400000;
+var stopTime = 4 * 100000;
+var driveTime = 8 * 100000;
 function calculateStops(route) {
     var totalDistance = 0;
     _.each(route.legs, function (leg) {
@@ -76,25 +93,26 @@ function calculateStops(route) {
     });
     var startTime = 8 * 60 * 60;
 
-    var defaultMilage = 400000;
-    var gasStops = [];
-    for (var i = defaultMilage; i < totalDistance; i += defaultMilage) {
-        var position = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
-        gasStops.push(createStop(position, 'gasoline', i));
+    if (milage > 0) {
+        var gasStops = [];
+        for (var i = milage; i < totalDistance; i += milage) {
+            var position = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
+            gasStops.push(createStop(position, 'gasoline', i));
+        }
     }
-    var foodStops = [];
-    var defaultFoodDuration = 4 * 60 * 60;
-    var distanceFood = 4 * 100000;
-    for (var i = distanceFood; i < totalDistance; i += distanceFood) {
-        var position = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
-        foodStops.push(createStop(position, 'food', i));
+    if (stopTime > 0) {
+        var foodStops = [];
+        for (var i = stopTime; i < totalDistance; i += stopTime) {
+            var position = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
+            foodStops.push(createStop(position, 'food', i));
+        }
     }
-    var hotelStops = [];
-    var defaultDriveDuration = 8 * 60 * 60;
-    var distanceDrive = 8 * 100000;
-    for (var i = distanceDrive; i < totalDistance; i += distanceDrive) {
-        var position = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
-        hotelStops.push(createStop(position, 'hotel', i));
+    if (hotelStops > 0) {
+        var hotelStops = [];
+        for (var i = driveTime; i < totalDistance; i += driveTime) {
+            var position = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
+            hotelStops.push(createStop(position, 'hotel', i));
+        }
     }
 }
 
