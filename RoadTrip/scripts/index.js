@@ -114,43 +114,45 @@ function parseParams() {
     }
 }
 
-var getBusinesses = function(result, stopPoint) {
+var getBusinesses = function (result, stopPoint) {
     var stop = stopPoint;
-    $.each(result.listings, function(i, e) {
-        var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
-        var marker;
-        var business = {
-            name: e.name,
-            address: e.address
-        };
-        if (stop.type == 'gasoline') {
-            marker = gasMarker(map, point, business);
-            getGasPrice(point, function(result) {
-                if (result.stations.length > 0) {
-                    business.gasPrice = result.stations[0].reg_price;
-                }
-                checkUpdate();
-            });
-        } else if (stop.type == 'food') {
-            marker = foodMarker(map, point, business);
-            getBusinessReviews(business, function(result) {
-                if (result.businesses.length > 0) {
-                    business.rating = result.businesses[0].avg_rating;
-                }
-                checkUpdate();
-            });
-        } else {
-            marker = hotelMarker(map, point, business);
-            getBusinessReviews(business, function(result) {
-                if (result.businesses.length > 0) {
-                    business.rating = result.businesses[0].avg_rating;
-                }
-                checkUpdate();
-            });
-        }
-        business.marker = marker;
-        stop.options.push(business);
-    });
+    if (result.listings) {
+        $.each(result.listings, function (i, e) {
+            var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
+            var marker;
+            var business = {
+                name: e.name,
+                address: e.address
+            };
+            if (stop.type == 'gasoline') {
+                marker = gasMarker(map, point, business);
+                getBusinessReviews(business, function (result) {
+                    if (result.businesses.length > 0) {
+                        business.rating = result.businesses[0].avg_rating;
+                    }
+                    checkUpdate();
+                });
+            } else if (stop.type == 'food') {
+                marker = foodMarker(map, point, business);
+                getBusinessReviews(business, function (result) {
+                    if (result.businesses.length > 0) {
+                        business.rating = result.businesses[0].avg_rating;
+                    }
+                    checkUpdate();
+                });
+            } else {
+                marker = hotelMarker(map, point, business);
+                getBusinessReviews(business, function (result) {
+                    if (result.businesses.length > 0) {
+                        business.rating = result.businesses[0].avg_rating;
+                    }
+                    checkUpdate();
+                });
+            }
+            business.marker = marker;
+            stop.options.push(business);
+        });
+    }
 };
 
 var rollback = 25000;
