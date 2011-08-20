@@ -36,24 +36,15 @@ function getCoordinateXMetersIntoTrip(meters, steps) {
     var accumulatedDistanceStartLerp = findAccumulatedDistanceUpToStep(stepIdxToStartLerp, steps);
 
     var remaining = meters - accumulatedDistanceStartLerp;
-    var lerpRange = steps[i].distance.value;
+    var lerpRange = steps[stepIdxToStartLerp].distance.value;
 
     var lerpRatio = remaining / lerpRange;  // percentage into the step
 
-    var startLat = steps[i].start_location;
-    var endLat = steps[i].end_location;
+    var startLat = steps[stepIdxToStartLerp].start_location;
+    var endLat = steps[stepIdxToStartLerp].end_location;
 
     var resultLat = google.maps.geometry.spherical.interpolate(startLat, endLat, lerpRatio);
 
-    // TODO: debug code
-    for (i = 0; i < steps.length; i = i + 1) {
-
-        steps[i].distance
-        printDirectionStep(steps[i]);
-        var polyline = steps[i].polyline;
-        var path = google.maps.geometry.encoding.decodePath(polyline.points);
-    }
-    //console.log(resultLat.toString());
     return resultLat;
 }
 
