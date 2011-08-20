@@ -309,7 +309,8 @@ $(document).ready(function () {
     init();
 });
 
-function SetMapPosition(lat, long) {
-    var latLng = new google.maps.LatLng(lat, long)
-    map.panTo(latLng);
+function SetMapPosition(lat, lng) {
+    var latlng = new google.maps.LatLng(lat, lng);
+    map.panTo(latlng);
+    map.setZoom(14);
 }
