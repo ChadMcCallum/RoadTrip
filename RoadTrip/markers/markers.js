@@ -102,8 +102,13 @@ function hotelMarker(map, position, business) {
 function addMarkerListener(marker) {
     google.maps.event.addListener(marker, 'click', function () {
         $('#detail-dialog .detail-left img').attr('src', marker.getIcon().url);
-        $('#detail-dialog .detail-right .name').html(marker.name);
-        $('#detail-dialog .detail-right .address').html(marker.address);
-        $('#detail-dialog').show();
+        $('#detail-dialog .detail-right .name').html(marker.business.name);
+        var address = marker.business.address.street + "<br />" + marker.business.address.city + ", " +
+            marker.business.address.prov + "<br />" + marker.business.address.pcode;
+        $('#detail-dialog .detail-right .address').html(address);
+        var infoWindow = new google.maps.InfoWindow({
+            content: $('#detail-dialog').html()
+        });
+        infoWindow.open(map, marker);
     });
 }
