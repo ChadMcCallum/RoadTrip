@@ -19,15 +19,17 @@ var foodShape = {
 
 var globalMarkerArray = [];
 
-function foodMarker(map, position) {
+function foodMarker(map, position, business) {
     var marker = new google.maps.Marker({
         icon: foodImage,
         shadow: foodShadow,
         shape: foodShape,
         map: map,
-        position: position
+        position: position,
+        business: business
     });
     globalMarkerArray.push(marker);
+    addMarkerListener(marker);
     return marker;
 }
 
@@ -50,15 +52,17 @@ var gasShape = {
     type: 'rect'
 };
 
-function gasMarker(map, position) {
+function gasMarker(map, position, business) {
 var marker = new google.maps.Marker({
         icon: gasImage,
         shadow: gasShadow,
         shape: gasShape,
         map: map,
-        position: position
+        position: position,
+        business: business
     });
     globalMarkerArray.push(marker);
+    addMarkerListener(marker);
     return marker;
 }
 
@@ -81,14 +85,25 @@ var hotelShape = {
     type: 'rect'
 };
 
-function hotelMarker(map, position) {
+function hotelMarker(map, position, business) {
     var marker = new google.maps.Marker({
         icon: hotelImage,
         shadow: hotelShadow,
         shape: hotelShape,
         map: map,
-        position: position
+        position: position,
+        business: business
     });
     globalMarkerArray.push(marker);
+    addMarkerListener(marker);
     return marker;
+}
+
+function addMarkerListener(marker) {
+    google.maps.event.addListener(marker, 'click', function () {
+        $('#detail-dialog .detail-left img').attr('src', marker.getIcon().url);
+        $('#detail-dialog .detail-right .name').html(marker.name);
+        $('#detail-dialog .detail-right .address').html(marker.address);
+        $('#detail-dialog').show();
+    });
 }

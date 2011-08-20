@@ -122,7 +122,7 @@ var getBusinesses = function(result, stopPoint) {
             address: e.address
         };
         if (stop.type == 'gasoline') {
-            marker = gasMarker(map, point);
+            marker = gasMarker(map, point, business);
             getGasPrice(point, function(result) {
                 if (result.stations.length > 0) {
                     business.gasPrice = result.stations[0].reg_price;
@@ -130,7 +130,7 @@ var getBusinesses = function(result, stopPoint) {
                 checkUpdate();
             });
         } else if (stop.type == 'food') {
-            marker = foodMarker(map, point);
+            marker = foodMarker(map, point, business);
             getBusinessReviews(business, function(result) {
                 if (result.businesses.length > 0) {
                     business.rating = result.businesses[0].avg_rating;
@@ -138,7 +138,7 @@ var getBusinesses = function(result, stopPoint) {
                 checkUpdate();
             });
         } else {
-            marker = hotelMarker(map, point);
+            marker = hotelMarker(map, point, business);
             getBusinessReviews(business, function(result) {
                 if (result.businesses.length > 0) {
                     business.rating = result.businesses[0].avg_rating;
