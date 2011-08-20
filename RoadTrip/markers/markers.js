@@ -99,6 +99,7 @@ function hotelMarker(map, position, business) {
     return marker;
 }
 
+var infoWindow = new google.maps.InfoWindow();
 function addMarkerListener(marker) {
     google.maps.event.addListener(marker, 'click', function () {
         $('#detail-dialog .detail-left img').attr('src', marker.getIcon().url);
@@ -106,9 +107,7 @@ function addMarkerListener(marker) {
         var address = marker.business.address.street + "<br />" + marker.business.address.city + ", " +
             marker.business.address.prov + "<br />" + marker.business.address.pcode;
         $('#detail-dialog .detail-right .address').html(address);
-        var infoWindow = new google.maps.InfoWindow({
-            content: $('#detail-dialog').html()
-        });
+        infoWindow.setContent($('#detail-dialog').html());
         infoWindow.open(map, marker);
     });
 }
