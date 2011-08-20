@@ -30,17 +30,82 @@
                 </div>
             </div>
 
-            <div id="content">
-                <div><div class="label-text">Origin:</div> <input id="input-origin" type="text" /></div>
-                <div><div class="label-text">Destination:</div> <input id='input-destination' type="text" /></div>
+            <div id="side-content">
+                <div id="parameters">
+                    <div class="option-row">
+                        <div class="label-text align-left">Origin:</div>
+                        <input id="input-origin" class="align-right" type="text" />
+                        <div class="clear"></div>
+                    </div>
+                    <div class="option-row">
+                        <div class="label-text align-left">Destination:</div>
+                        <input id='input-destination' class="align-right" type="text" />
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+                <input id="form-submit" type="submit" value="LETS GO!" class="align-right" style="margin: 10px 0; padding: 5px;"/>
+                
+                <div id="advanced-div">
+                    <div id="advanced-show" class="clickable">
+                        <div class="align-left">
+                            <span id="advanced-expando-icon" class="ui-icon ui-icon-plus"></span>
+                        </div>
+
+                        <span id="label-advanced" class="align-left">Advanced</span>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div id="advanced-content" style="display: none;">
+                        <span class="instruction-text">Show results for:</span><br /><br />
+
+                        <div class="option-row">
+                            <div class="option-checkbox inline">
+                                <input id="checkbox-food" type="checkbox" checked="checked" />
+                                <label for="checkbox-food">Restaurants</label>
+                            </div>
+
+                            <div class="option-checkbox inline">
+                                <input id="checkbox-gas" type="checkbox" checked="checked" />
+                                <label for="checkbox-gas">Gas</label>
+                            </div>
+
+                            <div class="option-checkbox inline">
+                                <input id="checkbox-hotel" type="checkbox" checked="checked" />
+                                <label for="checkbox-hotel">Hotels</label><br />
+                            </div>
+                        </div>
+
+                        <div style="display: none;">
+                            <input id="checkbox-other" type="checkbox" />
+                            <label for="checkbox-other">Other:</label>
+                            <input id="value-other" type="text" disabled="disabled" />
+                        </div>
+                        
+                        <br /><br />
+                        <div class="option-row">
+                            <div class="instruction-text align-left">Mileage</div>
+                            <input id="value-gas" type="text" class="align-left" value="500" />&nbsp;kms
+                            <div class="clear"></div>
+                        </div>
+                        <div class="option-row">
+                            <div class="instruction-text align-left">Stop Frequency</div>
+                            <input id="value-food" type="text" class="align-left" value="4" />&nbsp;hours
+                            <div class="clear"></div>
+                        </div>
+                        <div class="option-row">
+                            <div class="instruction-text align-left">Drive Time</div>
+                            <input id="value-hotel" type="text" class="align-left" value="8"/>&nbsp;hours
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="map_canvas" class="align-left"></div>
                
         <img src="css/images/poweredby.gif" class="powered-image" />
-        
-        <script type="text/javascript" src="scripts/index-page.js"></script>
     </body>
     <script type='text/x-jquery-tmpl' id='step-template'>
         <div>

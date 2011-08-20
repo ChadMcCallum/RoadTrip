@@ -1,7 +1,7 @@
 ﻿function getDirections() {
     var request = {
-        origin: getParameterByName("o"),
-        destination: getParameterByName("d"),
+        origin: origin,
+        destination: destination,
         travelMode: google.maps.TravelMode.DRIVING
     };
     directionsService.route(request, function (result, status) {
@@ -11,6 +11,26 @@
             calculateStops(result.routes[0]);
         }
     });
+}
+
+function clearMap() {
+    
+}
+
+function getNewDirections() {
+    var food = ($("#checkbox-food").attr("checked") == "checked") ? $("#value-food").val() : 0;
+    var gas = ($("#checkbox-gas").attr("checked") == "checked") ? $("#value-gas").val() : 0;
+    var hotel = ($("#checkbox-hotel").attr("checked") == "checked") ? $("#value-hotel").val() : 0;
+    var other = ($("#checkbox-other").attr("checked") == "checked") ? $("#value-other").val() : "";
+
+    milage = gas * gasMultiplier;
+    stopTime = food * foodMultiplier;
+    driveTime = hotel * hotelMultiplier;
+    origin = $("#input-origin").val();
+    destination = $("#input-destination").val();
+
+    clearMap();
+    getDirections();
 }
 
 var route;
@@ -35,25 +55,39 @@ function init() {
     parseParams();
 
     getDirections();
-    
-    
+
+    setInitialValues();
+
+    $("#form-submit").click(getNewDirections);
+}
+
+function setInitialValues() {
+    $("#input-origin").val(origin);
+    $("#input-destination").val(destination);
+
+    $("#value-gas").val(milage / gasMultiplier);
+    $("#value-food").val(stopTime / foodMultiplier);
+    $("#value-hotel ").val(driveTime / hotelMultiplier);
 }
 
 function parseParams() {
+    origin = getParameterByName("o");
+    destination = getParameterByName("d");
+    
     if (getParameterByName("gas")) {
-        milage = getParameterByName("gas") * 1000;
+        milage = getParameterByName("gas") * gasMultiplier;
     }
     if (getParameterByName("food")) {
-        stopTime = getParameterByName("food") * 100000;
+        stopTime = getParameterByName("food") * foodMultiplier;
     }
     if (getParameterByName("hotel")) {
-        driveTime = getParameterByName("hotel") * 100000;
+        driveTime = getParameterByName("hotel") * hotelMultiplier;
     }
 }
 
-var getBusinesses = function (result, stopPoint) {
+var getBusinesses = function(result, stopPoint) {
     var stop = stopPoint;
-    $.each(result.listings, function (i, e) {
+    $.each(result.listings, function(i, e) {
         var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
         var marker;
         var business = {
@@ -63,21 +97,21 @@ var getBusinesses = function (result, stopPoint) {
         };
         if (stop.type == 'gasoline') {
             marker = gasMarker(map, point);
-            getGasPrice(point, function (result) {
+            getGasPrice(point, function(result) {
                 if (result.stations.length > 0) {
                     business.gasPrice = result.stations[0].reg_price;
                 }
             });
         } else if (stop.type == 'food') {
             marker = foodMarker(map, point);
-            getBusinessReviews(business, function (result) {
+            getBusinessReviews(business, function(result) {
                 if (result.businesses.length > 0) {
                     business.rating = result.businesses[0].avg_rating;
                 }
             });
         } else {
             marker = hotelMarker(map, point);
-            getBusinessReviews(business, function (result) {
+            getBusinessReviews(business, function(result) {
                 if (result.businesses.length > 0) {
                     business.rating = result.businesses[0].avg_rating;
                 }
@@ -85,20 +119,28 @@ var getBusinesses = function (result, stopPoint) {
         }
         stop.options.push(business);
     });
-}
+};
 
 var rollback = 25000;
-var retryStop = function (stop, result) {
+var retryStop = function(stop, result) {
     stop.offset = stop.offset - rollback;
     var computeResult = getCoordinateXMetersIntoTrip(stop.offset, route.legs[0].steps);
     stop.position = computeResult.position;
     stop.stepIdx = computeResult.stepIdx;
     getBusinessesAtStop(stop, getBusinesses, retryStop);
-}
+};
+
+
+var gasMultiplier = 1000;
+var foodMultiplier = 100000;
+var hotelMultiplier = 100000;
 
 var milage = 400000;
 var stopTime = 4 * 100000;
 var driveTime = 8 * 100000;
+var origin = "";
+var destination = "";
+
 function calculateStops(route) {
     var totalDistance = 0;
     _.each(route.legs, function (leg) {
