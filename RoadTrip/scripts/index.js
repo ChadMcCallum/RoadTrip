@@ -308,7 +308,7 @@ function getGasPrice(location, success) {
 $(document).ready(function () {
     init();
 
-    $("#side-content").css("height", $("#map_canvas").outerHeight() - 120);
+    $("#side-content").css("height", $("#map_canvas").outerHeight() - 135);
 });
 
 function SetMapPosition(lat, lng) {

@@ -138,7 +138,7 @@
             </div>
             <div>
                 {{each (options)}}
-                <div class='column-name' onclick='SetMapPosition(${marker.getPosition().lat()}, ${marker.getPosition().lng()})'>
+                <div class='column-name clickable' onclick='SetMapPosition(${marker.getPosition().lat()}, ${marker.getPosition().lng()})'>
                     ${name}
                 </div>
                 {{if (gasPrice)}}
@@ -157,7 +157,7 @@
             </div>
             <div>
                 {{each (options)}}
-                <div class='column-name' onclick='SetMapPosition(${marker.getPosition().lat()}, ${marker.getPosition().lng()})'>
+                <div class='column-name clickable' onclick='SetMapPosition(${marker.getPosition().lat()}, ${marker.getPosition().lng()})'>
                     ${name}
                 </div>
                 {{if (rating)}}
@@ -176,7 +176,7 @@
             </div>
             <div>
                 {{each (options)}}
-                <div class='column-name' onclick='SetMapPosition(${marker.getPosition().lat()}, ${marker.getPosition().lng()})'>
+                <div class='column-name clickable' onclick='SetMapPosition(${marker.getPosition().lat()}, ${marker.getPosition().lng()})'>
                     ${name}
                 </div>
                 {{if (rating)}}
