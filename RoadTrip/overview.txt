@@ -1,0 +1,16 @@
+﻿RoadTrip
+========
+
+- get origin and destination
+- prompt for milage (fuel), # of hours on road (hotels)
+- get destination path from google directions API
+- calculate time of stops
+    - based on destination total time & length
+- calculate each stop position
+- for each stop position
+	- look up business(es) information based on calculated lat & long
+	- if no results, go backwards on route
+
+- present each stop to user to select from one to three options for stop
+- when user selects stop option, add as a direction waypoint to google api
+- update map with new destination path
