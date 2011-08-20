@@ -122,7 +122,7 @@
         <img src="css/images/poweredby.gif" class="powered-image" />
     </body>
     <script type='text/x-jquery-tmpl' id='step-template'>
-        <div>
+        <div class='option-row'>
             <div class='column-distance inline'>
                 (${distance.text})
             </div>
@@ -134,7 +134,7 @@
     <script type='text/x-jquery-tmpl' id='gas-stop-template'>
         <div class='option-row'>
             <div class='column-type'>
-                Gas Stop
+                <img src="markers/gas/marker-images/image.png" class="icon" /> Gas Stops
             </div>
             <div>
                 {{each (options)}}
@@ -153,7 +153,7 @@
     <script type='text/x-jquery-tmpl' id='food-stop-template'>
         <div>
             <div class='column-type'>
-                Food Stop
+                <img src="markers/food/marker-images/image.png" class="icon" /> Food Stops
             </div>
             <div>
                 {{each (options)}}
@@ -172,7 +172,7 @@
     <script type='text/x-jquery-tmpl' id='hotel-stop-template'>
         <div>
             <div class='column-type'>
-                Hotel Stop
+                <img src="markers/hotel/marker-images/image.png" class="icon" /> Hotel Stops
             </div>
             <div>
                 {{each (options)}}

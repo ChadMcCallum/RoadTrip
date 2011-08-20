@@ -14,6 +14,8 @@
 }
 
 function clearMap() {
+    $("#steps").empty();
+    
     for (i = 0; i < globalMarkerArray.length; i = i + 1) {
         globalMarkerArray[i].setMap(null);
     }
