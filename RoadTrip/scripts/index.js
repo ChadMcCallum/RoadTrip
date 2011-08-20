@@ -309,6 +309,7 @@ $(document).ready(function () {
     init();
 });
 
-function SetMapPosition(latLng) {
+function SetMapPosition(lat, long) {
+    var latLng = new google.maps.LatLng(lat, long)
     map.panTo(latLng);
 }
