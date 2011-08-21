@@ -36,6 +36,7 @@ function getNewDirections() {
     origin = $("#input-origin").val();
     destination = $("#input-destination").val();
 
+    pendingAPICalls = 0;
     clearMap();
     getDirections();
 }
@@ -256,6 +257,8 @@ function getBusinessesAtStop(stop, success, error) {
                 error(stop, result);
             }
             success(result, stop);
+        }, error: function () {
+            pendingAPICalls--;
         }
     });
 }
@@ -284,8 +287,10 @@ function getBusinessReviews(business, success) {
         success: function (data) {
             pendingAPICalls--;
             var result = JSON.parse(data.d);
-            
+
             success(result, stop);
+        }, error: function () {
+            pendingAPICalls--;
         }
     });
 }
@@ -303,6 +308,8 @@ function getGasPrice(location, success) {
             var result = JSON.parse(data.d);
 
             success(result, stop);
+        }, error: function () {
+            pendingAPICalls--;
         }
     });
 }
