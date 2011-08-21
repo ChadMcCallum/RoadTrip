@@ -119,39 +119,41 @@ var getBusinesses = function (result, stopPoint) {
     var stop = stopPoint;
     if (result.listings) {
         $.each(result.listings, function (i, e) {
-            var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
-            var marker;
-            var business = {
-                name: e.name,
-                address: e.address
-            };
-            if (stop.type == 'gasoline') {
-                marker = gasMarker(map, point, business);
-                getBusinessReviews(business, function (result) {
-                    if (result.businesses.length > 0) {
-                        business.rating = result.businesses[0].avg_rating;
-                    }
-                    checkUpdate();
-                });
-            } else if (stop.type == 'food') {
-                marker = foodMarker(map, point, business);
-                getBusinessReviews(business, function (result) {
-                    if (result.businesses.length > 0) {
-                        business.rating = result.businesses[0].avg_rating;
-                    }
-                    checkUpdate();
-                });
-            } else {
-                marker = hotelMarker(map, point, business);
-                getBusinessReviews(business, function (result) {
-                    if (result.businesses.length > 0) {
-                        business.rating = result.businesses[0].avg_rating;
-                    }
-                    checkUpdate();
-                });
+            if (i < 5) {
+                var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
+                var marker;
+                var business = {
+                    name: e.name,
+                    address: e.address
+                };
+                if (stop.type == 'gasoline') {
+                    marker = gasMarker(map, point, business);
+                    getBusinessReviews(business, function (result) {
+                        if (result.businesses.length > 0) {
+                            business.rating = result.businesses[0].avg_rating;
+                        }
+                        checkUpdate();
+                    });
+                } else if (stop.type == 'food') {
+                    marker = foodMarker(map, point, business);
+                    getBusinessReviews(business, function (result) {
+                        if (result.businesses.length > 0) {
+                            business.rating = result.businesses[0].avg_rating;
+                        }
+                        checkUpdate();
+                    });
+                } else {
+                    marker = hotelMarker(map, point, business);
+                    getBusinessReviews(business, function (result) {
+                        if (result.businesses.length > 0) {
+                            business.rating = result.businesses[0].avg_rating;
+                        }
+                        checkUpdate();
+                    });
+                }
+                business.marker = marker;
+                stop.options.push(business);
             }
-            business.marker = marker;
-            stop.options.push(business);
         });
     }
 };
@@ -253,7 +255,7 @@ function getBusinessesAtStop(stop, success, error) {
         success: function (data) {
             pendingAPICalls--;
             var result = JSON.parse(data.d);
-            if (result.errorCode) {
+            if (result.errorCode || result.listings.length < 5) {
                 error(stop, result);
             }
             success(result, stop);
