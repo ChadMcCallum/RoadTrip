@@ -1,0 +1,234 @@
+/* line 17, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* line 20, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body {
+  line-height: 1;
+}
+
+/* line 22, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 24, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 26, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 28, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 101, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 30, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 114, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 20, ../sass/_base.scss */
+html, body {
+  font-family: "Trebuchet MS";
+  font-size: 1em;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+/* line 28, ../sass/_base.scss */
+.clear {
+  clear: both;
+}
+
+/* line 3, ../sass/index.scss */
+body {
+  text-align: center;
+}
+
+/* line 5, ../sass/index.scss */
+.header {
+  background-color: #58585A;
+  text-align: left;
+}
+/* line 9, ../sass/index.scss */
+.header li {
+  display: inline;
+}
+/* line 12, ../sass/index.scss */
+.header li a {
+  height: 40px;
+  line-height: 40px;
+  padding: 10px;
+  color: white;
+}
+/* line 19, ../sass/index.scss */
+.header li a:hover {
+  background-color: #78787A;
+}
+
+/* line 25, ../sass/index.scss */
+.sidebar {
+  width: 300px;
+  float: left;
+  position: relative;
+  text-align: left;
+  padding: 15px;
+}
+/* line 32, ../sass/index.scss */
+.sidebar > img {
+  width: 300px;
+  margin-bottom: 30px;
+}
+/* line 34, ../sass/index.scss */
+.sidebar > #side-content #parameters {
+  width: 100%;
+}
+/* line 37, ../sass/index.scss */
+.sidebar > #side-content #parameters .option-row {
+  width: 100%;
+}
+/* line 40, ../sass/index.scss */
+.sidebar > #side-content #parameters .option-row > div {
+  width: 50%;
+  display: inline;
+}
+/* line 41, ../sass/index.scss */
+.sidebar > #side-content #parameters .option-row > input {
+  width: 50%;
+  display: inline;
+}
+
+/* line 47, ../sass/index.scss */
+#map_canvas {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 49, ../sass/index.scss */
+#first-run-dialog {
+  display: none;
+}
+
+/* line 50, ../sass/index.scss */
+#first-run-dialog .content {
+  margin-top: 35px;
+}
+/* line 53, ../sass/index.scss */
+#first-run-dialog .content > div {
+  width: 45%;
+}
+/* line 56, ../sass/index.scss */
+#first-run-dialog .content > div input {
+  width: 90%;
+  margin: 15px 0px;
+  padding: 2px 5px;
+  height: 30px;
+}
+/* line 64, ../sass/index.scss */
+#first-run-dialog .content .left-div {
+  float: left;
+}
+/* line 65, ../sass/index.scss */
+#first-run-dialog .content .right-div {
+  float: right;
+}
+/* line 66, ../sass/index.scss */
+#first-run-dialog .content button {
+  margin-top: 30px;
+}
+
+/* line 69, ../sass/index.scss */
+#detail-dialog {
+  -moz-box-shadow: 3px 3px 5px rgba(100, 100, 100, 0.8);
+  -webkit-box-shadow: 3px 3px 5px rgba(100, 100, 100, 0.8);
+  -o-box-shadow: 3px 3px 5px rgba(100, 100, 100, 0.8);
+  box-shadow: 3px 3px 5px rgba(100, 100, 100, 0.8);
+  display: none;
+  position: absolute;
+  background: #FFF;
+  border: #000;
+}
+
+/* line 78, ../sass/index.scss */
+#advanced-div {
+  clear: both;
+  font-size: 80%;
+}
+/* line 82, ../sass/index.scss */
+#advanced-div #advanced-show {
+  cursor: pointer;
+}
+/* line 85, ../sass/index.scss */
+#advanced-div #advanced-show * {
+  float: left;
+}
+/* line 88, ../sass/index.scss */
+#advanced-div #advanced-content {
+  text-align: left;
+}
+/* line 91, ../sass/index.scss */
+#advanced-div #advanced-content .option-row {
+  margin-bottom: 5px;
+}
+/* line 92, ../sass/index.scss */
+#advanced-div #advanced-content .option-checkbox {
+  margin-right: 10px;
+}
+/* line 93, ../sass/index.scss */
+#advanced-div #advanced-content .instruction-text {
+  width: 200px;
+}
+/* line 94, ../sass/index.scss */
+#advanced-div #advanced-content input[type='text'] {
+  width: 75px;
+}
+
+/* line 98, ../sass/index.scss */
+#form-submit {
+  text-align: center;
+  clear: both;
+}
+
+/* line 100, ../sass/index.scss */
+.yellowapi {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}

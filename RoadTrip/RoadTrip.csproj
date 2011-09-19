@@ -51,11 +51,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="css\fonts\finder-webfont.eot" />
-    <None Include="css\fonts\finder-webfont.ttf" />
-    <None Include="css\fonts\finder-webfont.woff" />
-    <Content Include="css\fonts.css" />
-    <Content Include="css\fonts\finder-webfont.svg" />
     <Content Include="css\images\poweredby.gif" />
     <Content Include="css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="css\images\ui-bg_flat_55_fbec88_40x100.png" />
@@ -69,7 +64,10 @@
     <Content Include="css\images\ui-icons_2e83ff_256x240.png" />
     <Content Include="css\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="css\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="css\index.css" />
     <Content Include="css\jquery-ui-1.8.16.custom.css" />
+    <Content Include="css\jquery.css" />
+    <Content Include="images\logo.png" />
     <Content Include="index.html" />
     <Content Include="mapindex.html" />
     <Content Include="markers\food\demo.html" />
@@ -89,10 +87,17 @@
     <Content Include="markers\hotel\marker-images\shadow.png" />
     <Content Include="markers\markers.js" />
     <Content Include="overview.txt" />
+    <Content Include="sass\_base.css">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_base.scss</DependentUpon>
+    </Content>
+    <Content Include="sass\index.css">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>index.scss</DependentUpon>
+    </Content>
     <Content Include="scripts\index.js" />
-    <Content Include="scripts\libs\jquery-1.6.2.min.js" />
-    <Content Include="scripts\libs\jquery-ui-1.8.16.custom.min.js" />
-    <Content Include="scripts\libs\less-1.1.3.min.js" />
     <Content Include="scripts\index-page.js" />
     <Content Include="scripts\maps.js" />
     <Content Include="scripts\common.js" />
@@ -104,10 +109,18 @@
     <Content Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </Content>
-    <None Include="css\index.less" />
+    <None Include="config.rb" />
     <None Include="markers\food\sample-code.text" />
     <None Include="markers\gas\sample-code.text" />
     <None Include="markers\hotel\sample-code.text" />
+    <None Include="sass\_base.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>_base.css</LastGenOutput>
+    </None>
+    <None Include="sass\index.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>index.css</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

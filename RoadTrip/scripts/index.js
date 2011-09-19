@@ -15,6 +15,7 @@
 
 function clearMap() {
     $("#steps").empty();
+    var i;
     
     for (i = 0; i < globalMarkerArray.length; i = i + 1) {
         globalMarkerArray[i].setMap(null);
@@ -316,11 +317,34 @@ function getGasPrice(location, success) {
     });
 }
 
+var $window = $(window);
+var $sidebar = $('.sidebar');
+var $header = $('.header');
+
 $(document).ready(function () {
     init();
+    SetMapSize();
 
-    $("#side-content").css("height", $("#map_canvas").outerHeight() - 135);
+    var showDialog = (!(origin && destination));
+
+    $("#first-run-dialog").dialog({
+        title: "Where are you going?",
+        modal: true,
+        width: 800,
+        autoOpen: showDialog,
+        close: SetMapSize,
+        resizable: false
+    });
+
+    $window.bind('resize', SetMapSize);
 });
+
+function SetMapSize() {
+    var mapWidth = $window.width() - $sidebar.outerWidth();
+    var mapHeight = $window.height() - $header.outerHeight();
+
+    $("#map_canvas").css("width", mapWidth).css("height", mapHeight);
+}
 
 function SetMapPosition(lat, lng) {
     var latlng = new google.maps.LatLng(lat, lng);

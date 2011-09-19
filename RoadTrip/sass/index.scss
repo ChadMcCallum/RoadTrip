@@ -1,0 +1,104 @@
+@import "_base";
+
+body { text-align: center; }
+
+.header {
+	background-color: #58585A;
+	text-align: left;
+
+	li {
+		display: inline;
+		
+		a {
+			height: 40px;
+			line-height: 40px;
+			padding: 10px;
+			color: white;
+		}
+	
+		a:hover {
+			background-color: #78787A;
+		}
+	}
+}
+
+.sidebar {
+	width: 300px;
+	float: left;
+	position: relative;
+	text-align: left;
+	padding: 15px;
+
+	> img { width: 300px; margin-bottom: 30px; }
+	> #side-content {
+		#parameters{
+			width: 100%;
+			
+			.option-row {
+				width: 100%;
+
+				> div { width: 50%; display: inline; }
+				> input { width: 50%; display: inline; }
+			}
+		}
+	}
+}
+
+#map_canvas { height: 100%; width: 100%; }
+
+#first-run-dialog { display: none; }
+#first-run-dialog .content {
+	margin-top: 35px;
+
+	> div { 
+		width: 45%;
+
+		input {
+			width: 90%;
+			margin: 15px 0px;
+			padding: 2px 5px;
+			height: 30px;
+		}
+	}
+
+	.left-div { float: left; }
+	.right-div { float: right; }
+	button { margin-top: 30px; }
+}
+
+#detail-dialog {
+	@include single-box-shadow(rgba(100, 100, 100, .8), 3px, 3px);
+
+	display: none;
+    position: absolute; 
+    background: #FFF; 
+    border: #000; 
+}
+
+#advanced-div {
+	@include clear;
+	font-size: $font-size-small;
+
+	#advanced-show { 
+		@include clickable;
+
+		* { float: left; }
+	}
+
+	#advanced-content {
+		text-align: left;
+
+		.option-row { margin-bottom: 5px; }
+		.option-checkbox { margin-right: 10px; }
+		.instruction-text { width: 200px; }
+		input[type='text'] { width: 75px; }
+	}
+}
+
+#form-submit { text-align: center; clear: both; }
+
+.yellowapi {
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+}

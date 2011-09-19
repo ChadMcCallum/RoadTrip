@@ -18,7 +18,6 @@
 });
     
 function disableOnCheck(checkbox, input) {
-
     $(checkbox).live('change', function (evt) {
         if ($(evt.currentTarget).attr("checked"))
             $(input).removeAttr("disabled");
@@ -26,7 +25,6 @@ function disableOnCheck(checkbox, input) {
             $(input).attr("disabled", "disabled");
         }
     });
-
 }
     
 function getParameterByName(name) {

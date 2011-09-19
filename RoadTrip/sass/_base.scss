@@ -1,0 +1,28 @@
+﻿@import "compass/reset";
+@import "compass/utilities";
+@import "compass/css3";
+
+$font-family-default: 'Trebuchet MS';
+$font-size-default: 1em;
+$font-size-small: 80%;
+$font-size-big: 130%;
+$font-size-bigger: 175%;
+$font-size-input: 110%;
+
+@mixin clickable {
+	cursor: pointer;
+}
+
+@mixin clear {
+	clear: both;
+}
+
+html, body {
+	font-family: $font-family-default;
+	font-size: $font-size-default;
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+.clear { clear: both; }
