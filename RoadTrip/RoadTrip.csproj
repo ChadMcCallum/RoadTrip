@@ -69,7 +69,6 @@
     <Content Include="css\jquery.css" />
     <Content Include="images\logo.png" />
     <Content Include="index.html" />
-    <Content Include="mapindex.html" />
     <Content Include="markers\food\demo.html" />
     <Content Include="markers\food\extras\combined.png" />
     <Content Include="markers\food\extras\sprite.png" />

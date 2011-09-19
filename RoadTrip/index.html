@@ -2,24 +2,217 @@
 <html>
     <head>
         <title>PitStops.ca</title>
-                
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.16.custom.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.css" />
     </head>
 
     <body>
-        <a href="index.html" class="logo">
+        <div class="header">
+            <ul>
+                <li><a href="#">About PitStops</a></li>
+                <li><a href="#">Rawr?</a></li>
+                <li><a href="#">Rawr!</a></li>
+            </ul>
+        </div>
+        
+        <div class="sidebar">
             <img src="images/logo.png" title="PitStops" alt="PitStops" />
-        </a>
 
+            <div id="side-content">
+                <div id="parameters">
+                    <div class="option-row">
+                        <div>Origin:</div>
+                        <input type="text" />
+                    </div>
+                    <div class="option-row">
+                        <div>Destination:</div>
+                        <input type="text" />
+                    </div>
+                </div>
 
+                <input id="form-submit" type="submit" value="LETS GO!" class="align-right" style="margin: 10px 0; padding: 5px;"/>
+                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div id="advanced-div">
+    <div id="advanced-show" class="clickable">
+        <div class="align-left">
+            <span id="advanced-expando-icon" class="ui-icon ui-icon-plus"></span>
+        </div>
+
+        <span id="label-advanced" class="align-left">Advanced</span>
+    </div>
+    <div class="clear"></div>
+
+    <div id="advanced-content" style="display: none;">
+        <span class="instruction-text">Show results for:</span><br /><br />
+
+        <div class="option-row">
+            <div class="option-checkbox inline">
+                <input id="checkbox-food" type="checkbox" checked="checked" />
+                <label for="checkbox-food">Restaurants</label>
+            </div>
+
+            <div class="option-checkbox inline">
+                <input id="checkbox-gas" type="checkbox" checked="checked" />
+                <label for="checkbox-gas">Gas</label>
+            </div>
+
+            <div class="option-checkbox inline">
+                <input id="checkbox-hotel" type="checkbox" checked="checked" />
+                <label for="checkbox-hotel">Hotels</label><br />
+            </div>
+        </div>
+
+        <div style="display: none;">
+            <input id="checkbox-other" type="checkbox" />
+            <label for="checkbox-other">Other:</label>
+            <input id="value-other" type="text" disabled="disabled" />
+        </div>
+                        
+        <br /><br />
+        <div class="option-row">
+            <div class="instruction-text align-left">Mileage</div>
+            <input id="value-gas" type="text" class="align-left" value="500" />&nbsp;kms
+            <div class="clear"></div>
+        </div>
+        <div class="option-row">
+            <div class="instruction-text align-left">Stop Frequency</div>
+            <input id="value-food" type="text" class="align-left" value="4" />&nbsp;hours
+            <div class="clear"></div>
+        </div>
+        <div class="option-row">
+            <div class="instruction-text align-left">Drive Time</div>
+            <input id="value-hotel" type="text" class="align-left" value="8"/>&nbsp;hours
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+                <div class="clear"></div>
+
+                <div id='steps'>
+                </div>
+            </div>
+        </div>
+
+        <div id="map_canvas"></div>
+
+        <!-- Dialogs -->        
+        <div id="first-run-dialog">
+            <img src="images/logo.png" title="PitStops" alt="PitStops" />
+
+            <div class="content">
+                <div class="left-div">
+                    <div>I'm leaving from ...</div>
+                    <input id="input-origin" type="text" value="Origin..." />
+                </div>
+            
+                <div class="right-div">
+                    <div>and going to ...</div>
+                    <input id='input-destination' type="text" value="Destination..." />
+                </div>
+                
+                <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">LET'S GO!</span></button>
+            </div>
+        </div>
+
+        <div id="detail-dialog">
+            <div class="detail-left">
+                <img src='' />
+            </div>
+            <div class="detail-right">
+                <div class='name'>asdf</div>
+                <div class='address'>asdf</div>
+            </div>
+        </div>
        
         <a href="http://www.yellowapi.com/" class="yellowapi" target="_none"><img src="css/images/poweredby.gif" /></a>
     </body>
 
+    
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <script type='text/javascript' src='//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js'></script>
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="scripts/common.js"></script>
-    <script type="text/javascript" src="scripts/index-page.js"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
+    <script type='text/javascript' src='scripts/maps.js'></script>
+    <script type="text/javascript" src="markers/markers.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <script type="text/javascript" src="//documentcloud.github.com/underscore/underscore.js"></script>
+
+    <script type='text/x-jquery-tmpl' id='destination-row'>
+        <div class="option-row">
+            <div>Destination:</div>
+            <input type="text" />
+        </div>
+    </script>
+
+    <script type='text/x-jquery-tmpl' id='step-template'>
+        <div class='step-row'>
+            <div class='column-distance inline'>
+                (${distance.text})
+            </div>
+            <div class='column-direction inline'>
+                {{html instructions}}
+            </div>
+        </div>
+    </script>
+    <script type='text/x-jquery-tmpl' id='gas-stop-template'>
+        <div class='step-row'>
+            <div class='column-type'>
+                <img src="markers/gas/marker-images/image.png" class="icon" valign="middle" /> Gas Stops
+            </div>
+            <div>
+                {{each (options)}}
+                <div class='column-name clickable' onclick='SetMapPosition(${marker.getPosition().lat()}, ${marker.getPosition().lng()})'>
+                    ${name}
+                </div>
+                {{if (gasPrice)}}
+                    <div class='column-value'>
+                        Estimated $/L: ${gasPrice}
+                    </div>
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </script>
+    <script type='text/x-jquery-tmpl' id='food-stop-template'>
+        <div class='step-row'>
+            <div class='column-type'>
+                <img src="markers/food/marker-images/image.png" class="icon" valign="middle" /> Food Stops
+            </div>
+            <div>
+                {{each (options)}}
+                <div class='column-name clickable' onclick='SetMapPosition(${marker.getPosition().lat()}, ${marker.getPosition().lng()})'>
+                    ${name}
+                </div>
+                {{if (rating)}}
+                    <div class='column-value'>
+                        Average Rating: ${rating}
+                    </div>
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </script>
+    <script type='text/x-jquery-tmpl' id='hotel-stop-template'>
+        <div class='step-row'>
+            <div class='column-type'>
+                <img src="markers/hotel/marker-images/image.png" class="icon" valign="middle" /> Hotel Stops
+            </div>
+            <div>
+                {{each (options)}}
+                <div class='column-name clickable' onclick='SetMapPosition(${marker.getPosition().lat()}, ${marker.getPosition().lng()})'>
+                    ${name}
+                </div>
+                {{if (rating)}}
+                    <div class='column-value'>
+                        Average Rating: ${rating}
+                    </div>
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </script>
+
 </html>
