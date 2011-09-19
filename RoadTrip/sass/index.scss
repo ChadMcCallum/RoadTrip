@@ -27,9 +27,16 @@ body { text-align: center; }
 	float: left;
 	position: relative;
 	text-align: left;
-	padding: 15px;
+	padding: 0px 15px;
+	overflow: auto;
 
-	> img { width: 300px; margin-bottom: 30px; }
+	.logo { text-align: center;
+		img {
+			width: 275px;
+			margin-top: 15px;
+			margin-bottom: 30px;
+		}
+	}
 	> #side-content {
 		#parameters{
 			width: 100%;
@@ -44,7 +51,7 @@ body { text-align: center; }
 	}
 }
 
-#map_canvas { height: 100%; width: 100%; }
+#map_canvas { height: 95%; width: 100%; }
 
 #first-run-dialog { display: none; }
 #first-run-dialog .content {

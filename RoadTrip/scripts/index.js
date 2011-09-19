@@ -332,10 +332,31 @@ $(document).ready(function () {
         modal: true,
         width: 800,
         autoOpen: showDialog,
+        dialogClass: 'alert',
         close: SetMapSize,
         resizable: false
     });
 
+    $("#input-origin, #input-destination").focus(function () {
+        if ($(this).val().toLowerCase() === "origin..." || $(this).val().toLowerCase() === "destination...") {
+            $(this).val("");
+        }
+    }).blur(function () {
+        if ($(this).val().trim().toLowerCase() === "") {
+            if ($(this).attr("id") == "input-origin")
+                $(this).val("Origin...");
+            else
+                $(this).val("Destination...");
+        }
+    });
+
+    $('#dialog-submit').click(function () {
+        var url = "index.html?" +
+                    "o=" + $("#input-origin").val() +
+                    "&d=" + $("#input-destination").val();
+
+        window.location.href = url;
+    });
     $window.bind('resize', SetMapSize);
 });
 
@@ -344,6 +365,7 @@ function SetMapSize() {
     var mapHeight = $window.height() - $header.outerHeight();
 
     $("#map_canvas").css("width", mapWidth).css("height", mapHeight);
+    $sidebar.css("height", mapHeight);
 }
 
 function SetMapPosition(lat, lng) {

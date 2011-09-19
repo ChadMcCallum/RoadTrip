@@ -109,72 +109,78 @@ body {
   float: left;
   position: relative;
   text-align: left;
-  padding: 15px;
+  padding: 0px 15px;
+  overflow: auto;
 }
-/* line 32, ../sass/index.scss */
-.sidebar > img {
-  width: 300px;
-  margin-bottom: 30px;
+/* line 33, ../sass/index.scss */
+.sidebar .logo {
+  text-align: center;
 }
 /* line 34, ../sass/index.scss */
+.sidebar .logo img {
+  width: 275px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+/* line 41, ../sass/index.scss */
 .sidebar > #side-content #parameters {
   width: 100%;
 }
-/* line 37, ../sass/index.scss */
+/* line 44, ../sass/index.scss */
 .sidebar > #side-content #parameters .option-row {
   width: 100%;
 }
-/* line 40, ../sass/index.scss */
+/* line 47, ../sass/index.scss */
 .sidebar > #side-content #parameters .option-row > div {
   width: 50%;
   display: inline;
 }
-/* line 41, ../sass/index.scss */
+/* line 48, ../sass/index.scss */
 .sidebar > #side-content #parameters .option-row > input {
   width: 50%;
   display: inline;
 }
 
-/* line 47, ../sass/index.scss */
+/* line 54, ../sass/index.scss */
 #map_canvas {
-  height: 100%;
+  height: 95%;
   width: 100%;
 }
 
-/* line 49, ../sass/index.scss */
+/* line 56, ../sass/index.scss */
 #first-run-dialog {
   display: none;
 }
 
-/* line 50, ../sass/index.scss */
+/* line 57, ../sass/index.scss */
 #first-run-dialog .content {
   margin-top: 35px;
 }
-/* line 53, ../sass/index.scss */
+/* line 60, ../sass/index.scss */
 #first-run-dialog .content > div {
   width: 45%;
 }
-/* line 56, ../sass/index.scss */
+/* line 63, ../sass/index.scss */
 #first-run-dialog .content > div input {
   width: 90%;
   margin: 15px 0px;
   padding: 2px 5px;
   height: 30px;
 }
-/* line 64, ../sass/index.scss */
+/* line 71, ../sass/index.scss */
 #first-run-dialog .content .left-div {
   float: left;
 }
-/* line 65, ../sass/index.scss */
+/* line 72, ../sass/index.scss */
 #first-run-dialog .content .right-div {
   float: right;
 }
-/* line 66, ../sass/index.scss */
+/* line 73, ../sass/index.scss */
 #first-run-dialog .content button {
   margin-top: 30px;
 }
 
-/* line 69, ../sass/index.scss */
+/* line 76, ../sass/index.scss */
 #detail-dialog {
   -moz-box-shadow: 3px 3px 5px rgba(100, 100, 100, 0.8);
   -webkit-box-shadow: 3px 3px 5px rgba(100, 100, 100, 0.8);
@@ -186,47 +192,47 @@ body {
   border: #000;
 }
 
-/* line 78, ../sass/index.scss */
+/* line 85, ../sass/index.scss */
 #advanced-div {
   clear: both;
   font-size: 80%;
 }
-/* line 82, ../sass/index.scss */
+/* line 89, ../sass/index.scss */
 #advanced-div #advanced-show {
   cursor: pointer;
 }
-/* line 85, ../sass/index.scss */
+/* line 92, ../sass/index.scss */
 #advanced-div #advanced-show * {
   float: left;
 }
-/* line 88, ../sass/index.scss */
+/* line 95, ../sass/index.scss */
 #advanced-div #advanced-content {
   text-align: left;
 }
-/* line 91, ../sass/index.scss */
+/* line 98, ../sass/index.scss */
 #advanced-div #advanced-content .option-row {
   margin-bottom: 5px;
 }
-/* line 92, ../sass/index.scss */
+/* line 99, ../sass/index.scss */
 #advanced-div #advanced-content .option-checkbox {
   margin-right: 10px;
 }
-/* line 93, ../sass/index.scss */
+/* line 100, ../sass/index.scss */
 #advanced-div #advanced-content .instruction-text {
   width: 200px;
 }
-/* line 94, ../sass/index.scss */
+/* line 101, ../sass/index.scss */
 #advanced-div #advanced-content input[type='text'] {
   width: 75px;
 }
 
-/* line 98, ../sass/index.scss */
+/* line 105, ../sass/index.scss */
 #form-submit {
   text-align: center;
   clear: both;
 }
 
-/* line 100, ../sass/index.scss */
+/* line 107, ../sass/index.scss */
 .yellowapi {
   position: absolute;
   left: 10px;
