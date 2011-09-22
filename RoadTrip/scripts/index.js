@@ -129,28 +129,10 @@ var getBusinesses = function (result, stopPoint) {
                 };
                 if (stop.type == 'gasoline') {
                     marker = gasMarker(map, point, business);
-                    getBusinessReviews(business, function (result) {
-                        if (result.businesses.length > 0) {
-                            business.rating = result.businesses[0].avg_rating;
-                        }
-                        checkUpdate();
-                    });
                 } else if (stop.type == 'food') {
                     marker = foodMarker(map, point, business);
-                    getBusinessReviews(business, function (result) {
-                        if (result.businesses.length > 0) {
-                            business.rating = result.businesses[0].avg_rating;
-                        }
-                        checkUpdate();
-                    });
                 } else {
                     marker = hotelMarker(map, point, business);
-                    getBusinessReviews(business, function (result) {
-                        if (result.businesses.length > 0) {
-                            business.rating = result.businesses[0].avg_rating;
-                        }
-                        checkUpdate();
-                    });
                 }
                 business.marker = marker;
                 stop.options.push(business);
@@ -162,6 +144,7 @@ var getBusinesses = function (result, stopPoint) {
 var rollback = 25000;
 var retryStop = function(stop, result) {
     stop.offset = stop.offset - rollback;
+    stop.options = [];
     var computeResult = getCoordinateXMetersIntoTrip(stop.offset, route.legs[0].steps);
     stop.position = computeResult.position;
     stop.stepIdx = computeResult.stepIdx;
@@ -248,10 +231,10 @@ function getBusinessesAtStop(stop, success, error) {
     };
     pendingAPICalls++;
     $.ajax({
-        type: "POST",
+        type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: "/services/yellowproxy.asmx/GetBusinessTypesAtLocation",
-        data: "{ search: '" + data.search + "', lat: " + data.lat + ", lng: " + data.lng + "}",
+        url: "./services/service.php",
+        data: "action=getlocation&search=" + data.search + "&lat=" + data.lat + "&lng=" + data.lng,
         dataType: "json",
         success: function (data) {
             pendingAPICalls--;
@@ -271,50 +254,6 @@ function checkUpdate() {
     if (pendingAPICalls == 0) {
         displaySteps();
     }
-}
-function getBusinessReviews(business, success) {
-    var address = business.address.street + ", " + business.address.city + ", " +
-        business.address.prov + ", " + business.address.pcode;
-    address = encodeURI(address);
-    var data = {
-        name: business.name,
-        address: address
-    };
-    pendingAPICalls++;
-    $.ajax({
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        url: "/services/yellowproxy.asmx/GetBusinessReviews",
-        data: "{ name: '" + data.name + "', address: '" + data.address + "'}",
-        dataType: "json",
-        success: function (data) {
-            pendingAPICalls--;
-            var result = JSON.parse(data.d);
-
-            success(result, stop);
-        }, error: function () {
-            pendingAPICalls--;
-        }
-    });
-}
-
-function getGasPrice(location, success) {
-    pendingAPICalls++;
-    $.ajax({
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        url: "/services/yellowproxy.asmx/GetGasPrice",
-        data: "{ lat: " + location.lat() + ", lng: " + location.lng() + "}",
-        dataType: "json",
-        success: function (data) {
-            pendingAPICalls--;
-            var result = JSON.parse(data.d);
-
-            success(result, stop);
-        }, error: function () {
-            pendingAPICalls--;
-        }
-    });
 }
 
 var $window = $(window);
