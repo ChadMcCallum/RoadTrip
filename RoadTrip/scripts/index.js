@@ -8,7 +8,9 @@
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(result);
             route = result.routes[0];
+            calculateTotalsBeforeCalculatingStops(result.routes[0]);
             calculateStops(result.routes[0]);
+            beginCalculateGasStops(result.routes[0]);
         }
     });
 }
@@ -162,32 +164,131 @@ var driveTime = 8 * 100000;
 var origin = "";
 var destination = "";
 
-function calculateStops(route) {
-    var totalDistance = 0;
-    _.each(route.legs, function (leg) {
-        totalDistance += leg.distance.value;
-    });
-    var totalDuration = 0;
-    _.each(route.legs, function (leg) {
-        totalDuration += leg.duration.value;
-    });
-    var startTime = 8 * 60 * 60;
+// New gas stop calculation (which affects future results if previous result needed to be shifted due to lack of business results)
+var gCurrentMileage = 0;
+var gTotalTripDistance = 0;
+var gGasStops = [];
+var gLegSteps;
 
-    if (milage > 0) {
-        var gasStops = [];
-        for (var i = milage; i < totalDistance; i += milage) {
-            var result = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
-            var stop = createStop(result.position, result.stepIdx, 'gasoline', i);
-            if (!route.legs[0].steps[result.stepIdx].RoadTripGasStops) {
-                route.legs[0].steps[result.stepIdx].RoadTripGasStops = [];
-            }
-            route.legs[0].steps[result.stepIdx].RoadTripGasStops.push(stop);
-            gasStops.push(stop);
-        }
+function calculateTotalsBeforeCalculatingStops(route) {
+    gTotalTripDistance = 0;
+    _.each(route.legs, function (leg) {
+        gTotalTripDistance += leg.distance.value;
+    });
+}
+function beginCalculateGasStops(route) {
+
+    // Store values in globals
+    gCurrentMileage = milage;
+    gLegSteps = route.legs[0].steps;
+    gGasStops = [];
+
+    if (gCurrentMileage > 0) {
+        tryToGetStopsAtMileage(gCurrentMileage, gLegSteps, dropMarkersAndCalculateNextGasStop, recalculateCurrentGasStop);
     }
+}
+
+function getGasAtStop(stop, success, error) {
+    var data = {
+        search: stop.type,
+        lat: stop.position.lat(),
+        lng: stop.position.lng()
+    };
+    pendingAPICalls++;
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        url: "/services/yellowproxy.asmx/GetBusinessTypesAtLocation",
+        data: "{ search: '" + data.search + "', lat: " + data.lat + ", lng: " + data.lng + "}",
+        dataType: "json",
+        success: function (data) {
+            pendingAPICalls--;
+            var result = JSON.parse(data.d);
+            if (result.errorCode || result.listings.length < 5) {
+                error(stop, result);
+            }
+            else {
+                success(result, stop);
+            }
+        }, error: function () {
+            pendingAPICalls--;
+        }
+    });
+}
+
+function dropMarkersAndCalculateNextGasStop(result, stopPoint) {
+    var stop = stopPoint;
+    if (result.listings) {
+        $.each(result.listings, function (i, e) {
+            if (i < 5) {
+                var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
+                var marker;
+                var business = {
+                    name: e.name,
+                    address: e.address
+                };
+                if (stop.type == 'gasoline') {
+                    marker = gasMarker(map, point, business);
+                } else if (stop.type == 'food') {
+                    marker = foodMarker(map, point, business);
+                } else {
+                    marker = hotelMarker(map, point, business);
+                }
+                business.marker = marker;
+                stop.options.push(business);
+            }
+        });
+        gCurrentMileage = stop.offset;
+        console.log("found businesses around mileage: " + stop.offset + " (" + stop.position.lat() + "," + stop.position.lng() + ")");
+    }
+    
+    // Calculate next gas stop
+    gCurrentMileage = gCurrentMileage + milage;
+    if (gCurrentMileage < gTotalTripDistance) {
+        tryToGetStopsAtMileage(gCurrentMileage, gLegSteps, dropMarkersAndCalculateNextGasStop, recalculateCurrentGasStop);
+    }
+};
+
+function recalculateCurrentGasStop(stop, result) {
+    console.log("invalid results at: " + stop.offset + " recalculate at: " + (stop.offset - rollback));
+    stop.offset = stop.offset - rollback;
+    stop.options = [];
+    var computeResult = getCoordinateXMetersIntoTrip(stop.offset, route.legs[0].steps);
+    stop.position = computeResult.position;
+    stop.stepIdx = computeResult.stepIdx;
+    getGasAtStop(stop, dropMarkersAndCalculateNextGasStop, recalculateCurrentGasStop);
+}
+
+function hasValidBusinesses(yellowPagesResult) {
+    return (yellowPagesResult.errorCode == 0 && yellowPagesResult.listings.length >= 5);
+}
+
+function tryToGetStopsAtMileage(currentMileage, legSteps, success, error) {
+    // Try to see if current distance into trip will have valid businesses
+    var coordinate = getCoordinateXMetersIntoTrip(currentMileage, legSteps);
+
+    // If following call is successful, record currentMileage and proceed
+    // If following call fails, back track currentMileage and try again
+    var createdStop = tryCreateGasStop(coordinate.position, coordinate.stepIdx, 'gasoline', currentMileage, success, error);
+}
+
+function tryCreateGasStop(position, stepIdx, type, offset, success, error) {
+    var stop = {
+        position: position,
+        stepIdx : stepIdx,
+        type: type,
+        options: [],
+        offset: offset
+    };
+    getGasAtStop(stop, success, error);
+    return stop;
+}
+
+function calculateStops(route) {
+
     if (stopTime > 0) {
         var foodStops = [];
-        for (var i = stopTime; i < totalDistance; i += stopTime) {
+        for (var i = stopTime; i < gTotalTripDistance; i += stopTime) {
             var result = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
             var stop = createStop(result.position, result.stepIdx, 'food', i);
             if (!route.legs[0].steps[result.stepIdx].RoadTripFoodStops) {
@@ -199,7 +300,7 @@ function calculateStops(route) {
     }
     if (driveTime > 0) {
         var hotelStops = [];
-        for (var i = driveTime; i < totalDistance; i += driveTime) {
+        for (var i = driveTime; i < gTotalTripDistance; i += driveTime) {
             var result = getCoordinateXMetersIntoTrip(i, route.legs[0].steps);
             var stop = createStop(result.position, result.stepIdx, 'hotel', i);
             if (!route.legs[0].steps[result.stepIdx].RoadTripHotelStops) {
