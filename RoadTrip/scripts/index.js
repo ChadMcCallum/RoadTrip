@@ -299,6 +299,7 @@ function dropMarkersAndCalculateNextGasStop(result, stopPoint) {
     if (gCurrentMileage < gTotalTripDistance) {
         tryToGetStopsAtMileage(gCurrentMileage, gLegSteps, dropMarkersAndCalculateNextGasStop, recalculateCurrentGasStop);
     }
+    checkUpdate();
 };
 
 function recalculateCurrentGasStop(stop, result) {
@@ -396,9 +397,9 @@ function getBusinessesAtStop(stop, success, error) {
             var result = JSON.parse(data.d);
             if (result.length < 5) {
                 error(stop, result);
+            } else {
+                success(result, stop);
             }
-
-            success(result, stop);
         }, error: function () {
             pendingAPICalls--;
         }
@@ -452,10 +453,6 @@ $(document).ready(function () {
     if (urlOrigin) $('#input-origin').val(urlOrigin);
     var urlDestination = getParameterByName("d");
     if (urlDestination) $('#input-destination').val(urlDestination);
-    var tripid = getParameterByName("tripid");
-    if (tripid) {
-        getTripData(tripid);
-    }
 
     $('#dialog-submit').click(function () {
         var url = "index.html?" +
