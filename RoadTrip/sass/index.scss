@@ -98,6 +98,7 @@
 .overlay {
 	@include border-radius(10px);
 	@include box-shadow(rgba(black, 0.75), 5px, 5px, 10px);
+	display: none;
 	background: $overlay-color;
 	left: 600px;
 	top: 350px;

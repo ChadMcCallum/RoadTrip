@@ -47,9 +47,9 @@ function getCoordXSecondsIntoTrip(seconds, steps) {
     return getCoordinateXMetersIntoTrip(distanceTravelled, steps);
 }
 
-function PSOverlay(bounds, data, map) {
+function PSOverlay(point, data, map) {
     // Now initialize all properties.
-    this.bounds_ = bounds;
+    this.point_ = point;
     this.data_ = data;
     this.map_ = map;
 
@@ -63,7 +63,9 @@ function PSOverlay(bounds, data, map) {
     this.setMap(map);
 }
 
-PSOverlay.prototype.onAdd = function() {
+PSOverlay.prototype = new google.maps.OverlayView();
+
+PSOverlay.prototype.onAdd = function () {
     // Note: an overlay's receipt of onAdd() indicates that
     // the map's panes are now available for attaching
     // the overlay to the map via the DOM.
@@ -77,11 +79,11 @@ PSOverlay.prototype.onAdd = function() {
     // We add an overlay to a map via one of the map's panes.
     // We'll add this overlay to the overlayImage pane.
     var panes = this.getPanes();
-    panes.overlayLayer.appendChild(div);
+    $(panes.overlayImage).append(div);
+    div.toggle(350);
 };
 
-PSOverlay.prototype.draw = function() {
-
+PSOverlay.prototype.draw = function () {
     // Size and position the overlay. We use a southwest and northeast
     // position of the overlay to peg it to the correct position and size.
     // We need to retrieve the projection from this overlay to do this.
@@ -90,20 +92,15 @@ PSOverlay.prototype.draw = function() {
     // Retrieve the southwest and northeast coordinates of this overlay
     // in latlngs and convert them to pixels coordinates.
     // We'll use these coordinates to resize the DIV.
-    var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
-    var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
+    var pt = overlayProjection.fromLatLngToDivPixel(this.point_);
 
     // Resize the image's DIV to fit the indicated dimensions.
-    var div = this.div_;
-    div.style.left = sw.x + 'px';
-    div.style.top = ne.y + 'px';
-    div.style.width = (ne.x - sw.x) + 'px';
-    div.style.height = (sw.y - ne.y) + 'px';
+    var $div = $(this.div_);
+    $div.css("left", pt.x + 32);
+    $div.css("top", pt.y - 32);
 };
 
 PSOverlay.prototype.onRemove = function() {
     this.div_.parentNode.removeChild(this.div_);
     this.div_ = null;
 };
-
-PSOverlay.prototype = new google.maps.OverlayView();

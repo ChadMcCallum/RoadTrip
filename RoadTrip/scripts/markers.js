@@ -19,13 +19,6 @@ var hotelImage = new google.maps.MarkerImage(
   new google.maps.Point(0, 64)
 );
 
-var markerShadow = new google.maps.MarkerImage(
-  '/images/icons/shadow.png',
-  new google.maps.Size(100, 64),
-  new google.maps.Point(0, 0),
-  new google.maps.Point(0, 64)
-);
-
 var markerShape = {
     coord: [0, 0, 64, 64],
     type: 'rect'
@@ -36,35 +29,41 @@ var globalMarkerArray = [];
 function foodMarker(map, position, business) {
     var marker = new google.maps.Marker({
         icon: foodImage,
-        shadow: markerShadow,
         shape: markerShape,
         position: position,
         business: business
     });
     globalMarkerArray.push(marker);
+    addMarkerListener(marker);
     return marker;
 }
 
 function gasMarker(map, position, business) {
 var marker = new google.maps.Marker({
         icon: gasImage,
-        shadow: markerShadow,
         shape: markerShape,
         position: position,
         business: business
     });
     globalMarkerArray.push(marker);
+    addMarkerListener(marker);
     return marker;
 }
 
 function hotelMarker(map, position, business) {
     var marker = new google.maps.Marker({
         icon: hotelImage,
-        shadow: markerShadow,
         shape: markerShape,
         position: position,
         business: business
     });
     globalMarkerArray.push(marker);
+    addMarkerListener(marker);
     return marker;
+}
+
+function addMarkerListener(marker) {
+    google.maps.event.addListener(marker, 'click', function () {
+        var overlay = new PSOverlay(marker.position, marker.business, map);
+    });
 }

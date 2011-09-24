@@ -87,6 +87,7 @@
     <Content Include="markers\gas\marker-images\shadow.png" />
     <Content Include="markers\hotel\marker-images\image.png" />
     <Content Include="markers\hotel\marker-images\shadow.png" />
+    <Content Include="scripts\libs\json2.js" />
     <Content Include="scripts\markers.js" />
     <Content Include="overview.txt" />
     <Content Include="sass\_base.css">

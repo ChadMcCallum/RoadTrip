@@ -48,7 +48,7 @@ namespace RoadTrip.services
                                              }
                            };
             var data = JsonConvert.DeserializeAnonymousType(result, anon);
-            return data.results[0].formatted_address.Contains("USA") ? "USA" : "Canada";
+            return data.results.Length > 0 && data.results[0].formatted_address.Contains("USA") ? "USA" : "Canada";
         }
 
         private Stop[] GetUSABusinessTypesAtLocation(string search, double lat, double lng)
