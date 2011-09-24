@@ -63,7 +63,57 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 20, ../sass/_base.scss */
+/* line 45, icons */
+.icons-sprite, .icons-food, .icons-gas, .icons-hotels, .icons-other {
+  background: url('/images/icons-s93fcc5641a.png') no-repeat;
+}
+
+/* line 60, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-food {
+  background-position: 0 0;
+}
+
+/* line 60, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-gas {
+  background-position: 0 -64px;
+}
+
+/* line 60, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-hotels {
+  background-position: 0 -128px;
+}
+
+/* line 60, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-other {
+  background-position: 0 -192px;
+}
+
+/* line 45, icons-small */
+.icons-small-sprite, .icons-small-food, .icons-small-gas, .icons-small-hotels, .icons-small-other {
+  background: url('/images/icons-small-s7df6d54cc8.png') no-repeat;
+}
+
+/* line 60, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-small-food {
+  background-position: 0 0;
+}
+
+/* line 60, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-small-gas {
+  background-position: 0 -32px;
+}
+
+/* line 60, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-small-hotels {
+  background-position: 0 -64px;
+}
+
+/* line 60, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-small-other {
+  background-position: 0 -96px;
+}
+
+/* line 32, ../sass/_base.scss */
 html, body {
   font-family: "Trebuchet MS";
   font-size: 1em;
@@ -72,115 +122,187 @@ html, body {
   width: 100%;
 }
 
-/* line 28, ../sass/_base.scss */
+/* line 40, ../sass/_base.scss */
 .clear {
   clear: both;
 }
 
 /* line 3, ../sass/index.scss */
-body {
-  text-align: center;
-}
-
-/* line 5, ../sass/index.scss */
 .header {
-  background-color: #58585A;
-  text-align: left;
+  background-color: #58585a;
+  height: 40px;
+  line-height: 40px;
 }
-/* line 9, ../sass/index.scss */
+/* line 8, ../sass/index.scss */
 .header li {
   display: inline;
 }
-/* line 12, ../sass/index.scss */
+/* line 11, ../sass/index.scss */
 .header li a {
-  height: 40px;
-  line-height: 40px;
-  padding: 10px;
+  padding: 9px 10px;
   color: white;
 }
-/* line 19, ../sass/index.scss */
+/* line 15, ../sass/index.scss */
 .header li a:hover {
-  background-color: #78787A;
+  background-color: #78787a;
 }
 
-/* line 25, ../sass/index.scss */
+/* line 20, ../sass/index.scss */
 .sidebar {
-  width: 300px;
-  float: left;
-  position: relative;
+  width: 350px;
+  position: absolute;
   text-align: left;
-  padding: 0px 15px;
   overflow: auto;
+  top: 40px;
+  left: -1px;
+  bottom: 0px;
+  border-right: 1px solid #58585a;
 }
-/* line 33, ../sass/index.scss */
+/* line 30, ../sass/index.scss */
 .sidebar .logo {
   text-align: center;
 }
-/* line 34, ../sass/index.scss */
+/* line 31, ../sass/index.scss */
 .sidebar .logo img {
-  width: 275px;
-  margin-top: 15px;
-  margin-bottom: 30px;
+  margin: 15px 0px;
+}
+/* line 34, ../sass/index.scss */
+.sidebar > #side-content {
+  padding: 15px;
+}
+/* line 37, ../sass/index.scss */
+.sidebar > #side-content #parameters {
+  *zoom: 1;
+  width: 100%;
+}
+/* line 38, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.sidebar > #side-content #parameters:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 /* line 41, ../sass/index.scss */
-.sidebar > #side-content #parameters {
-  width: 100%;
+.sidebar > #side-content #parameters .option-row, .sidebar > #side-content #parameters .input-row {
+  *zoom: 1;
+  margin-bottom: 5px;
 }
-/* line 44, ../sass/index.scss */
-.sidebar > #side-content #parameters .option-row {
-  width: 100%;
+/* line 38, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.sidebar > #side-content #parameters .option-row:after, .sidebar > #side-content #parameters .input-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 45, ../sass/index.scss */
+.sidebar > #side-content #parameters .option-row > div, .sidebar > #side-content #parameters .input-row > div {
+  display: inline-block;
+}
+/* line 46, ../sass/index.scss */
+.sidebar > #side-content #parameters .option-row .option-key, .sidebar > #side-content #parameters .input-row .option-key {
+  width: 32px;
 }
 /* line 47, ../sass/index.scss */
-.sidebar > #side-content #parameters .option-row > div {
-  width: 50%;
-  display: inline;
+.sidebar > #side-content #parameters .option-row .option-value, .sidebar > #side-content #parameters .input-row .option-value {
+  width: 263px;
 }
-/* line 48, ../sass/index.scss */
-.sidebar > #side-content #parameters .option-row > input {
-  width: 50%;
-  display: inline;
-}
-
-/* line 54, ../sass/index.scss */
-#map_canvas {
-  height: 95%;
+/* line 50, ../sass/index.scss */
+.sidebar > #side-content #parameters .option-row .option-value input, .sidebar > #side-content #parameters .input-row .option-value input {
   width: 100%;
 }
-
+/* line 51, ../sass/index.scss */
+.sidebar > #side-content #parameters .option-row .option-value span, .sidebar > #side-content #parameters .input-row .option-value span {
+  cursor: pointer;
+  color: blue;
+  font-size: 75%;
+}
 /* line 56, ../sass/index.scss */
-#first-run-dialog {
-  display: none;
+.sidebar > #side-content #parameters .option-row .option-value span:hover, .sidebar > #side-content #parameters .input-row .option-value span:hover {
+  text-decoration: underline;
+}
+/* line 57, ../sass/index.scss */
+.sidebar > #side-content #parameters .option-row .option-value span#add-destination, .sidebar > #side-content #parameters .input-row .option-value span#add-destination {
+  float: left;
+}
+/* line 58, ../sass/index.scss */
+.sidebar > #side-content #parameters .option-row .option-value span#more-options, .sidebar > #side-content #parameters .input-row .option-value span#more-options {
+  float: right;
+}
+/* line 61, ../sass/index.scss */
+.sidebar > #side-content #parameters .option-row .option-remove, .sidebar > #side-content #parameters .input-row .option-remove {
+  width: 15px;
+  vertical-align: middle;
+}
+/* line 61, ../sass/index.scss */
+.sidebar > #side-content #parameters .option-row .option-remove span, .sidebar > #side-content #parameters .input-row .option-remove span {
+  cursor: pointer;
+}
+/* line 65, ../sass/index.scss */
+.sidebar > #side-content #form-submit {
+  margin-top: 15px;
+  float: right;
 }
 
-/* line 57, ../sass/index.scss */
+/* line 68, ../sass/index.scss */
+.ie7 .sidebar > #side-content #parameters .option-row > div, .ie7 .sidebar > #side-content #parameters .input-row > div {
+  display: inline;
+}
+/* line 68, ../sass/index.scss */
+.ie7 .sidebar > #side-content #parameters .option-row .option-remove, .ie7 .sidebar > #side-content #parameters .input-row .option-remove {
+  padding-left: 7px;
+}
+
+/* line 69, ../sass/index.scss */
+.ie8 .sidebar > #side-content #parameters .option-row .option-value, .ie8 .sidebar > #side-content #parameters .option-row .input-row, .ie9 .sidebar > #side-content #parameters .option-row .option-value, .ie9 .sidebar > #side-content #parameters .option-row .input-row {
+  width: 263px;
+}
+
+/* line 71, ../sass/index.scss */
+#map_canvas {
+  position: absolute;
+  top: 40px;
+  left: 350px;
+  bottom: 0px;
+  right: 0px;
+}
+
+/* line 79, ../sass/index.scss */
+#first-run-dialog {
+  display: none;
+  text-align: center;
+}
+/* line 83, ../sass/index.scss */
 #first-run-dialog .content {
   margin-top: 35px;
 }
-/* line 60, ../sass/index.scss */
+/* line 86, ../sass/index.scss */
 #first-run-dialog .content > div {
   width: 45%;
 }
-/* line 63, ../sass/index.scss */
+/* line 89, ../sass/index.scss */
 #first-run-dialog .content > div input {
   width: 90%;
   margin: 15px 0px;
   padding: 2px 5px;
   height: 30px;
 }
-/* line 71, ../sass/index.scss */
+/* line 97, ../sass/index.scss */
 #first-run-dialog .content .left-div {
   float: left;
 }
-/* line 72, ../sass/index.scss */
+/* line 98, ../sass/index.scss */
 #first-run-dialog .content .right-div {
   float: right;
 }
-/* line 73, ../sass/index.scss */
+/* line 99, ../sass/index.scss */
 #first-run-dialog .content button {
   margin-top: 30px;
 }
+/* line 102, ../sass/index.scss */
+#first-run-dialog #form-submit {
+  text-align: center;
+  clear: both;
+}
 
-/* line 76, ../sass/index.scss */
+/* line 105, ../sass/index.scss */
 #detail-dialog {
   -moz-box-shadow: 3px 3px 5px rgba(100, 100, 100, 0.8);
   -webkit-box-shadow: 3px 3px 5px rgba(100, 100, 100, 0.8);
@@ -192,47 +314,42 @@ body {
   border: #000;
 }
 
-/* line 85, ../sass/index.scss */
+/* line 113, ../sass/index.scss */
 #advanced-div {
-  clear: both;
+  overflow: hidden;
+  *zoom: 1;
   font-size: 80%;
 }
-/* line 89, ../sass/index.scss */
+/* line 117, ../sass/index.scss */
 #advanced-div #advanced-show {
   cursor: pointer;
 }
-/* line 92, ../sass/index.scss */
+/* line 120, ../sass/index.scss */
 #advanced-div #advanced-show * {
   float: left;
 }
-/* line 95, ../sass/index.scss */
+/* line 123, ../sass/index.scss */
 #advanced-div #advanced-content {
   text-align: left;
 }
-/* line 98, ../sass/index.scss */
+/* line 126, ../sass/index.scss */
 #advanced-div #advanced-content .option-row {
   margin-bottom: 5px;
 }
-/* line 99, ../sass/index.scss */
+/* line 127, ../sass/index.scss */
 #advanced-div #advanced-content .option-checkbox {
   margin-right: 10px;
 }
-/* line 100, ../sass/index.scss */
+/* line 128, ../sass/index.scss */
 #advanced-div #advanced-content .instruction-text {
   width: 200px;
 }
-/* line 101, ../sass/index.scss */
+/* line 129, ../sass/index.scss */
 #advanced-div #advanced-content input[type='text'] {
   width: 75px;
 }
 
-/* line 105, ../sass/index.scss */
-#form-submit {
-  text-align: center;
-  clear: both;
-}
-
-/* line 107, ../sass/index.scss */
+/* line 133, ../sass/index.scss */
 .yellowapi {
   position: absolute;
   left: 10px;

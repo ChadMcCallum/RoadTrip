@@ -12,7 +12,7 @@
                 $(this).val("Destination...");
         }
     });
-
+    
     $('#form-submit').click(function () {
         var food = ($("#checkbox-food").attr("checked") == "checked") ? $("#value-food").val() : 0;
         var gas = ($("#checkbox-gas").attr("checked") == "checked") ? $("#value-gas").val() : 0;

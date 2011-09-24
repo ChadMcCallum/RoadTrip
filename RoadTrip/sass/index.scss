@@ -1,89 +1,117 @@
 @import "_base";
 
-body { text-align: center; }
-
 .header {
-	background-color: #58585A;
-	text-align: left;
+	background-color: $header-bgcolor;
+	height: $header-height;
+	line-height: $header-height;
 
 	li {
 		display: inline;
 		
 		a {
-			height: 40px;
-			line-height: 40px;
-			padding: 10px;
+			padding: 9px 10px;
 			color: white;
-		}
-	
-		a:hover {
-			background-color: #78787A;
+
+			&:hover { background-color: $header-color; }
 		}
 	}
 }
 
 .sidebar {
-	width: 300px;
-	float: left;
-	position: relative;
+	width: $sidebar-width;
+	position: absolute;
 	text-align: left;
-	padding: 0px 15px;
 	overflow: auto;
+	top: $header-height;
+	left: -1px;
+	bottom: 0px;
+	border-right: 1px solid $header-bgcolor;
 
 	.logo { text-align: center;
-		img {
-			width: 275px;
-			margin-top: 15px;
-			margin-bottom: 30px;
-		}
+		img { margin: 15px 0px; }
 	}
-	> #side-content {
-		#parameters{
-			width: 100%;
-			
-			.option-row {
-				width: 100%;
 
-				> div { width: 50%; display: inline; }
-				> input { width: 50%; display: inline; }
+	> #side-content {
+		padding: 15px;
+		
+		#parameters {
+			@include pie-clearfix;
+			width: 100%;
+
+			.option-row, .input-row {
+				@include pie-clearfix;
+				margin-bottom: 5px;
+
+				>div { display: inline-block; }
+				.option-key { width: $option-key-width; }
+				.option-value {
+					width: $option-value-width;
+
+					input { width: 100%; }
+					span {
+						@include clickable;
+						color: blue;
+						font-size: 75%;
+						
+						&:hover { text-decoration: underline; }
+						&#add-destination { float: left; }
+						&#more-options { float: right; }
+					}
+				}
+				.option-remove { width: $option-remove-width; vertical-align: middle; span { @include clickable; } }
 			}
 		}
+
+		#form-submit { margin-top: 15px; float: right; }
 	}
 }
+.ie7 .sidebar > #side-content #parameters { .option-row, .input-row { > div { display: inline; } .option-remove { padding-left: 7px; } } }
+.ie8, .ie9 { .sidebar > #side-content #parameters .option-row { .option-value, .input-row { width: $option-value-width; } } }
 
-#map_canvas { height: 95%; width: 100%; }
+#map_canvas {
+	position: absolute;
+	top: $header-height;
+	left: $sidebar-width;
+	bottom: 0px;
+	right: 0px;
+}
 
-#first-run-dialog { display: none; }
-#first-run-dialog .content {
-	margin-top: 35px;
+#first-run-dialog {
+	display: none;
+	text-align: center;
+	
+	.content {
+		margin-top: 35px;
 
-	> div { 
-		width: 45%;
+		> div { 
+			width: 45%;
 
-		input {
-			width: 90%;
-			margin: 15px 0px;
-			padding: 2px 5px;
-			height: 30px;
+			input {
+				width: 90%;
+				margin: 15px 0px;
+				padding: 2px 5px;
+				height: 30px;
+			}
 		}
-	}
 
-	.left-div { float: left; }
-	.right-div { float: right; }
-	button { margin-top: 30px; }
+		.left-div { float: left; }
+		.right-div { float: right; }
+		button { margin-top: 30px; }
+	}
+	
+	#form-submit { text-align: center; clear: both; }
 }
 
 #detail-dialog {
 	@include single-box-shadow(rgba(100, 100, 100, .8), 3px, 3px);
-
 	display: none;
-    position: absolute; 
+    position: absolute;
     background: #FFF; 
     border: #000; 
 }
 
 #advanced-div {
-	@include clear;
+	@include clearfix;
 	font-size: $font-size-small;
 
 	#advanced-show { 
@@ -101,8 +129,6 @@ body { text-align: center; }
 		input[type='text'] { width: 75px; }
 	}
 }
-
-#form-submit { text-align: center; clear: both; }
 
 .yellowapi {
 	position: absolute;

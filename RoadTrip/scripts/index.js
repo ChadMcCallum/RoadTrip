@@ -260,9 +260,14 @@ var $window = $(window);
 var $sidebar = $('.sidebar');
 var $header = $('.header');
 
+function enumerate() {
+    $("#parameters .input-row").each(function (i, el) {
+        $(".option-key", el).html(i + 1);
+    });
+}
+
 $(document).ready(function () {
     init();
-    SetMapSize();
 
     var showDialog = (!(origin && destination));
 
@@ -272,7 +277,6 @@ $(document).ready(function () {
         width: 800,
         autoOpen: showDialog,
         dialogClass: 'alert',
-        close: SetMapSize,
         resizable: false
     });
 
@@ -296,16 +300,21 @@ $(document).ready(function () {
 
         window.location.href = url;
     });
-    $window.bind('resize', SetMapSize);
+
+    $('#add-destination').click(function () {
+        var newRow = $($("#destination-row").html());
+        $("#parameters > .option-row").before(newRow);
+        enumerate();
+        newRow.slideToggle();
+    });
+
+    $('#parameters .option-remove').live("click", function () {
+        $(this).parent(".input-row").slideToggle("250", function () {
+            $(this).remove();
+            enumerate();
+        });
+    });
 });
-
-function SetMapSize() {
-    var mapWidth = $window.width() - $sidebar.outerWidth();
-    var mapHeight = $window.height() - $header.outerHeight();
-
-    $("#map_canvas").css("width", mapWidth).css("height", mapHeight);
-    $sidebar.css("height", mapHeight);
-}
 
 function SetMapPosition(lat, lng) {
     var latlng = new google.maps.LatLng(lat, lng);

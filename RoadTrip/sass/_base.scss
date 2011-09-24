@@ -1,6 +1,12 @@
 ﻿@import "compass/reset";
+@import "compass/layout";
 @import "compass/utilities";
 @import "compass/css3";
+
+@import "icons/*.png";
+@include all-icons-sprites;
+@import "icons-small/*.png";
+@include all-icons-small-sprites;
 
 $font-family-default: 'Trebuchet MS';
 $font-size-default: 1em;
@@ -9,12 +15,18 @@ $font-size-big: 130%;
 $font-size-bigger: 175%;
 $font-size-input: 110%;
 
+$header-height: 40px;
+$header-bgcolor: #58585A;
+$header-color: #78787A;
+
+$sidebar-width: 350px;
+
+$option-key-width: 32px;
+$option-value-width: 263px;
+$option-remove-width: 15px;
+
 @mixin clickable {
 	cursor: pointer;
-}
-
-@mixin clear {
-	clear: both;
 }
 
 html, body {
@@ -25,4 +37,6 @@ html, body {
 	width: 100%;
 }
 
-.clear { clear: both; }
+.clear {
+	clear: both;
+}

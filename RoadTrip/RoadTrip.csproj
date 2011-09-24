@@ -67,6 +67,14 @@
     <Content Include="css\index.css" />
     <Content Include="css\jquery-ui-1.8.16.custom.css" />
     <Content Include="css\jquery.css" />
+    <Content Include="images\icons-small\food.png" />
+    <Content Include="images\icons-small\gas.png" />
+    <Content Include="images\icons-small\hotels.png" />
+    <Content Include="images\icons-small\other.png" />
+    <Content Include="images\icons\food.png" />
+    <Content Include="images\icons\gas.png" />
+    <Content Include="images\icons\hotels.png" />
+    <Content Include="images\icons\other.png" />
     <Content Include="images\logo.png" />
     <Content Include="index.html" />
     <Content Include="markers\food\demo.html" />
