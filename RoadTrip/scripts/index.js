@@ -143,6 +143,56 @@ var getBusinesses = function (result, stopPoint) {
     checkUpdate();
 };
 
+$('#save').click(function () {
+    //build data object
+    var data = {
+        origin: $('#input-origin').val(),
+        destination: $('#input-destination').val(),
+        stops: []
+    };
+    $.each(route.legs[0].steps, function (i, e) {
+        if (e.RoadTripGasStops && e.RoadTripGasStops.length > 0) {
+            $.each(e.RoadTripGasStops, function (j, f) {
+                data.stops.push(createStopData(f.options[0]));
+            });
+        }
+        if (e.RoadTripFoodStops && e.RoadTripFoodStops.length > 0) {
+            $.each(e.RoadTripFoodStops, function (j, f) {
+                data.stops.push(createStopData(f.options[0]));
+            });
+        }
+        if (e.RoadTripHotelStops && e.RoadTripHotelStops.length > 0) {
+            $.each(e.RoadTripHotelStops, function (j, f) {
+                data.stops.push(createStopData(f.options[0]));
+            });
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "./services/service.php?action=savetrip",
+        data: { data: JSON.stringify(data), email: $('#email').val() },
+        dataType: "json",
+        success: function (data) {
+            alert(data);
+        }, error: function () {
+        }
+    });
+});
+
+function createStopData(stop) {
+    var stopData = {
+        lat: stop.marker.position.Ja,
+        lng: stop.marker.position.Ka,
+        name: stop.name,
+        street: stop.address.street,
+        city: stop.address.city,
+        province: stop.address.prov,
+        pcode: stop.address.pcode
+    };
+    return stopData;
+}
+
 var rollback = 50000;
 var retryStop = function (stop, result) {
     stop.offset = stop.offset - rollback;
@@ -398,6 +448,14 @@ $(document).ready(function () {
                 $(this).val("Destination...");
         }
     });
+    var urlOrigin = getParameterByName("o");
+    if (urlOrigin) $('#input-origin').val(urlOrigin);
+    var urlDestination = getParameterByName("d");
+    if (urlDestination) $('#input-destination').val(urlDestination);
+    var tripid = getParameterByName("tripid");
+    if (tripid) {
+        getTripData(tripid);
+    }
 
     $('#dialog-submit').click(function () {
         var url = "index.html?" +
@@ -426,4 +484,15 @@ function SetMapPosition(lat, lng) {
     var latlng = new google.maps.LatLng(lat, lng);
     map.panTo(latlng);
     map.setZoom(14);
+}
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regexS = "[\\?&]" + name + "=([^&#]*)";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(window.location.href);
+    if (results == null)
+        return "";
+    else
+        return decodeURIComponent(results[1].replace(/\+/g, " "));
 }
