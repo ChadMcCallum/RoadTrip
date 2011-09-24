@@ -41,11 +41,19 @@
 			.option-row, .input-row {
 				@include pie-clearfix;
 				margin-bottom: 5px;
+				position: relative;
+				height: 30px;
+				line-height: 30px;
 
-				>div { display: inline-block; }
-				.option-key { width: $option-key-width; }
+				>div { position: absolute; }
+				.option-key {
+					width: $option-key-width;
+					left: 0px;
+					cursor: move;
+				}
 				.option-value {
-					width: $option-value-width;
+					left: $option-key-width;
+					right: $option-remove-width + 10px;
 
 					input { width: 100%; }
 					span {
@@ -58,15 +66,26 @@
 						&#more-options { float: right; }
 					}
 				}
-				.option-remove { width: $option-remove-width; vertical-align: middle; span { @include clickable; } }
+				.option-remove {
+					width: $option-remove-width;
+					top: 8px;
+					right: 0px;
+					vertical-align: middle;
+					span { @include clickable; }
+				}
 			}
 		}
 
 		#form-submit { margin-top: 15px; float: right; }
 	}
 }
-.ie7 .sidebar > #side-content #parameters { .option-row, .input-row { > div { display: inline; } .option-remove { padding-left: 7px; } } }
-.ie8, .ie9 { .sidebar > #side-content #parameters .option-row { .option-value, .input-row { width: $option-value-width; } } }
+.ie7 .sidebar > #side-content #parameters {
+	.option-row, .input-row {
+		> div { display: inline; }
+		.option-value { top: 4px; }
+		.option-remove { padding-left: 7px; }
+	}
+}
 
 #map_canvas {
 	position: absolute;

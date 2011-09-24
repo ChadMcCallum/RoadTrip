@@ -35,7 +35,7 @@ Microsoft.VisualStudio.Web.Application:0:in `Microsoft.VisualStudio.Shell.Intero
 CLR exception details:
 
 IronRuby.Classes.SystemException$1: Sass::SyntaxError
-   at ℑℜ:visit:17:1125:C:\Users\Willson Haw\AppData\Local\Microsoft\VisualStudio\10.0\Extensions\Mindscape\Mindscape Web Workbench\1.0.267.18452\CustomTool\Sass\sass\lib/sass/../sass/tree/visitors/perform.rb(Closure , Object , Proc , Object )
+   at ℑℜ:visit:17:1612:C:\Users\Willson Haw\AppData\Local\Microsoft\VisualStudio\10.0\Extensions\Mindscape\Mindscape Web Workbench\1.0.267.18452\CustomTool\Sass\sass\lib/sass/../sass/tree/visitors/perform.rb(Closure , Object , Proc , Object )
    at Microsoft.Scripting.Interpreter.LightLambda.Run3[T0,T1,T2,TRet](T0 arg0, T1 arg1, T2 arg2)
    at IronRuby.Runtime.Calls.RubyObjectMethodDispatcherWithScope`1.Invoke[TScope](CallSite callSite, TScope scope, Object self, T0 arg0)
    at System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
