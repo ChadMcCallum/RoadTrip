@@ -76,6 +76,36 @@
 	right: 0px;
 }
 
+.overlay {
+	@include border-radius(10px);
+	@include box-shadow(rgba(black, 0.75), 5px, 5px, 10px);
+	background: $overlay-color;
+	left: 600px;
+	top: 350px;
+	padding: 15px;
+	position: absolute;
+
+	.overlay-logo {
+		float: left;
+		margin-right: 10px;
+		img { max-width: $overlay-image-width; max-height: $overlay-image-height; }
+	}
+
+	.overlay-details {
+		float: right;
+
+		.name { font-size: $font-size-big; margin-bottom: 5px; }
+		.dispnum { font-style: italics; margin-bottom: 10px; }
+
+		.address {
+			color: $overlay-address-color;
+
+			.city { display: inline; }
+			.prov { display: inline; }
+		}
+	}
+}
+
 #first-run-dialog {
 	display: none;
 	text-align: center;
