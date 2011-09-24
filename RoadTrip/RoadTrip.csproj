@@ -78,6 +78,7 @@
     <Content Include="images\icons\gas.png" />
     <Content Include="images\icons\hotels.png" />
     <Content Include="images\icons\other.png" />
+    <Content Include="images\icons\shadow.png" />
     <Content Include="images\logo.png" />
     <Content Include="index.html" />
     <Content Include="markers\food\marker-images\image.png" />
@@ -86,7 +87,7 @@
     <Content Include="markers\gas\marker-images\shadow.png" />
     <Content Include="markers\hotel\marker-images\image.png" />
     <Content Include="markers\hotel\marker-images\shadow.png" />
-    <Content Include="markers\markers.js" />
+    <Content Include="scripts\markers.js" />
     <Content Include="overview.txt" />
     <Content Include="sass\_base.css">
       <AutoGen>True</AutoGen>
