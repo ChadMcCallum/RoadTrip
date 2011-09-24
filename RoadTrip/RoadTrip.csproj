@@ -34,6 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -77,19 +80,10 @@
     <Content Include="images\icons\other.png" />
     <Content Include="images\logo.png" />
     <Content Include="index.html" />
-    <Content Include="markers\food\demo.html" />
-    <Content Include="markers\food\extras\combined.png" />
-    <Content Include="markers\food\extras\sprite.png" />
     <Content Include="markers\food\marker-images\image.png" />
     <Content Include="markers\food\marker-images\shadow.png" />
-    <Content Include="markers\gas\demo.html" />
-    <Content Include="markers\gas\extras\combined.png" />
-    <Content Include="markers\gas\extras\sprite.png" />
     <Content Include="markers\gas\marker-images\image.png" />
     <Content Include="markers\gas\marker-images\shadow.png" />
-    <Content Include="markers\hotel\demo.html" />
-    <Content Include="markers\hotel\extras\combined.png" />
-    <Content Include="markers\hotel\extras\sprite.png" />
     <Content Include="markers\hotel\marker-images\image.png" />
     <Content Include="markers\hotel\marker-images\shadow.png" />
     <Content Include="markers\markers.js" />
@@ -108,7 +102,7 @@
     <Content Include="scripts\index-page.js" />
     <Content Include="scripts\maps.js" />
     <Content Include="scripts\common.js" />
-    <Content Include="services\yellowproxy.asmx" />
+    <Content Include="services\searchproxy.asmx" />
     <Content Include="web.config" />
     <Content Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
@@ -117,9 +111,7 @@
       <DependentUpon>web.config</DependentUpon>
     </Content>
     <None Include="config.rb" />
-    <None Include="markers\food\sample-code.text" />
-    <None Include="markers\gas\sample-code.text" />
-    <None Include="markers\hotel\sample-code.text" />
+    <Content Include="packages.config" />
     <None Include="sass\_base.scss">
       <Generator>ScssGenerator</Generator>
       <LastGenOutput>_base.css</LastGenOutput>
@@ -131,8 +123,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="services\yellowproxy.asmx.cs">
-      <DependentUpon>yellowproxy.asmx</DependentUpon>
+    <Compile Include="services\searchproxy.asmx.cs">
+      <DependentUpon>searchproxy.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

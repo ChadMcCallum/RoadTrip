@@ -18,7 +18,7 @@
 function clearMap() {
     $("#steps").empty();
     var i;
-    
+
     for (i = 0; i < globalMarkerArray.length; i = i + 1) {
         globalMarkerArray[i].setMap(null);
     }
@@ -106,7 +106,7 @@ function setInitialValues() {
 function parseParams() {
     origin = getParameterByName("o");
     destination = getParameterByName("d");
-    
+
     if (getParameterByName("gas")) {
         milage = getParameterByName("gas") * gasMultiplier;
     }
@@ -120,37 +120,39 @@ function parseParams() {
 
 var getBusinesses = function (result, stopPoint) {
     var stop = stopPoint;
-    if (result.listings) {
-        $.each(result.listings, function (i, e) {
-            if (i < 5) {
-                var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
-                var marker;
-                var business = {
-                    name: e.name,
-                    address: e.address
-                };
-                if (stop.type == 'gasoline') {
-                    marker = gasMarker(map, point, business);
-                } else if (stop.type == 'food') {
-                    marker = foodMarker(map, point, business);
-                } else {
-                    marker = hotelMarker(map, point, business);
-                }
-                business.marker = marker;
-                stop.options.push(business);
-            }
-        });
-    }
+    $.each(result, function (i, e) {
+        var point = new google.maps.LatLng(e.lat, e.lng);
+        var marker;
+        var business = {
+            name: e.name,
+            address: e.address
+        };
+        if (stop.type == 'gasoline') {
+            marker = gasMarker(map, point, business);
+        } else if (stop.type == 'food') {
+            marker = foodMarker(map, point, business);
+        } else {
+            marker = hotelMarker(map, point, business);
+        }
+        business.marker = marker;
+        if (i == 0) {
+            marker.setMap(map);
+        }
+        stop.options.push(business);
+    });
+    checkUpdate();
 };
 
-var rollback = 25000;
-var retryStop = function(stop, result) {
+var rollback = 50000;
+var retryStop = function (stop, result) {
     stop.offset = stop.offset - rollback;
     stop.options = [];
-    var computeResult = getCoordinateXMetersIntoTrip(stop.offset, route.legs[0].steps);
-    stop.position = computeResult.position;
-    stop.stepIdx = computeResult.stepIdx;
-    getBusinessesAtStop(stop, getBusinesses, retryStop);
+    if (stop.offset > 0) {
+        var computeResult = getCoordinateXMetersIntoTrip(stop.offset, route.legs[0].steps);
+        stop.position = computeResult.position;
+        stop.stepIdx = computeResult.stepIdx;
+        getBusinessesAtStop(stop, getBusinesses, retryStop);
+    }
 };
 
 
@@ -315,7 +317,7 @@ function calculateStops(route) {
 function createStop(position, stepIdx, type, offset) {
     var stop = {
         position: position,
-        stepIdx : stepIdx,
+        stepIdx: stepIdx,
         type: type,
         options: [],
         offset: offset
@@ -330,19 +332,22 @@ function getBusinessesAtStop(stop, success, error) {
         lat: stop.position.lat(),
         lng: stop.position.lng()
     };
+    if (data.lat < 49) data.country = "US";
+    else data.country = "CAN";
     pendingAPICalls++;
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
-        url: "/services/yellowproxy.asmx/GetBusinessTypesAtLocation",
-        data: "{ search: '" + data.search + "', lat: " + data.lat + ", lng: " + data.lng + "}",
+        url: "/services/searchproxy.asmx/GetBusinessTypesAtLocation",
+        data: "{ search: '" + data.search + "', lat: " + data.lat + ", lng: " + data.lng + ", country: '" + data.country + "'}",
         dataType: "json",
         success: function (data) {
             pendingAPICalls--;
             var result = JSON.parse(data.d);
-            if (result.errorCode || result.listings.length < 5) {
+            if (result.length < 5) {
                 error(stop, result);
             }
+
             success(result, stop);
         }, error: function () {
             pendingAPICalls--;

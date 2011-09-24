@@ -24,7 +24,6 @@ function foodMarker(map, position, business) {
         icon: foodImage,
         shadow: foodShadow,
         shape: foodShape,
-        map: map,
         position: position,
         business: business
     });
@@ -57,7 +56,6 @@ var marker = new google.maps.Marker({
         icon: gasImage,
         shadow: gasShadow,
         shape: gasShape,
-        map: map,
         position: position,
         business: business
     });
@@ -90,7 +88,6 @@ function hotelMarker(map, position, business) {
         icon: hotelImage,
         shadow: hotelShadow,
         shape: hotelShape,
-        map: map,
         position: position,
         business: business
     });
@@ -105,7 +102,7 @@ function addMarkerListener(marker) {
         $('#detail-dialog .detail-left img').attr('src', marker.getIcon().url);
         $('#detail-dialog .detail-right .name').html(marker.business.name);
         var address = marker.business.address.street + "<br />" + marker.business.address.city + ", " +
-            marker.business.address.prov + "<br />" + marker.business.address.pcode;
+            marker.business.address.prov;
         $('#detail-dialog .detail-right .address').html(address);
         infoWindow.setContent($('#detail-dialog').html());
         infoWindow.open(map, marker);
