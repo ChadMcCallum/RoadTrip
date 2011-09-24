@@ -1,10 +1,3 @@
-
-
-function printDirectionStep(step) {
-//    console.log(step.duration.text + " " + step.duration.value + " " + step.distance.text +
-//    " " + step.start_location.toString());
-}
-
 function kmPerHourToMetersPerSecond(kmh) {
     var metersPerHour = kmh * 1000;
     var metersPerSecond = metersPerHour / (60.0 * 60.0);

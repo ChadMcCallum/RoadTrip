@@ -231,10 +231,10 @@ function getBusinessesAtStop(stop, success, error) {
     };
     pendingAPICalls++;
     $.ajax({
-        type: "GET",
+        type: "POST",
         contentType: "application/json; charset=utf-8",
-        url: "./services/service.php",
-        data: "action=getlocation&search=" + data.search + "&lat=" + data.lat + "&lng=" + data.lng,
+        url: "/services/yellowproxy.asmx/GetBusinessTypesAtLocation",
+        data: "{ search: '" + data.search + "', lat: " + data.lat + ", lng: " + data.lng + "}",
         dataType: "json",
         success: function (data) {
             pendingAPICalls--;
