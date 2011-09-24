@@ -246,17 +246,19 @@ function getGasAtStop(stop, success, error) {
         lat: stop.position.lat(),
         lng: stop.position.lng()
     };
+    if (data.lat < 49) data.country = "US";
+    else data.country = "CAN";
     pendingAPICalls++;
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
-        url: "/services/yellowproxy.asmx/GetBusinessTypesAtLocation",
-        data: "{ search: '" + data.search + "', lat: " + data.lat + ", lng: " + data.lng + "}",
+        url: "/services/searchproxy.asmx/GetBusinessTypesAtLocation",
+        data: "{ search: '" + data.search + "', lat: " + data.lat + ", lng: " + data.lng + ", country: '" + data.country + "'}",
         dataType: "json",
         success: function (data) {
             pendingAPICalls--;
             var result = JSON.parse(data.d);
-            if (result.errorCode || result.listings.length < 5) {
+            if (result.length < 5) {
                 error(stop, result);
             }
             else {
@@ -270,30 +272,28 @@ function getGasAtStop(stop, success, error) {
 
 function dropMarkersAndCalculateNextGasStop(result, stopPoint) {
     var stop = stopPoint;
-    if (result.listings) {
-        $.each(result.listings, function (i, e) {
-            if (i < 5) {
-                var point = new google.maps.LatLng(e.geoCode.latitude, e.geoCode.longitude);
-                var marker;
-                var business = {
-                    name: e.name,
-                    address: e.address
-                };
-                if (stop.type == 'gasoline') {
-                    marker = gasMarker(map, point, business);
-                } else if (stop.type == 'food') {
-                    marker = foodMarker(map, point, business);
-                } else {
-                    marker = hotelMarker(map, point, business);
-                }
-                business.marker = marker;
-                stop.options.push(business);
-            }
-        });
-        gCurrentMileage = stop.offset;
-        console.log("found businesses around mileage: " + stop.offset + " (" + stop.position.lat() + "," + stop.position.lng() + ")");
-    }
-    
+    $.each(result, function (i, e) {
+        var point = new google.maps.LatLng(e.lat, e.lng);
+        var marker;
+        var business = {
+            name: e.name,
+            address: e.address
+        };
+        if (stop.type == 'gasoline') {
+            marker = gasMarker(map, point, business);
+        } else if (stop.type == 'food') {
+            marker = foodMarker(map, point, business);
+        } else {
+            marker = hotelMarker(map, point, business);
+        }
+        business.marker = marker;
+        if (i == 0)
+            marker.setMap(map);
+        stop.options.push(business);
+    });
+    gCurrentMileage = stop.offset;
+    console.log("found businesses around mileage: " + stop.offset + " (" + stop.position.lat() + "," + stop.position.lng() + ")");
+
     // Calculate next gas stop
     gCurrentMileage = gCurrentMileage + milage;
     if (gCurrentMileage < gTotalTripDistance) {
@@ -327,7 +327,7 @@ function tryToGetStopsAtMileage(currentMileage, legSteps, success, error) {
 function tryCreateGasStop(position, stepIdx, type, offset, success, error) {
     var stop = {
         position: position,
-        stepIdx : stepIdx,
+        stepIdx: stepIdx,
         type: type,
         options: [],
         offset: offset
