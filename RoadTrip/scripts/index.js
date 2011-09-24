@@ -240,36 +240,6 @@ function beginCalculateGasStops(route) {
     }
 }
 
-function getGasAtStop(stop, success, error) {
-    var data = {
-        search: stop.type,
-        lat: stop.position.lat(),
-        lng: stop.position.lng()
-    };
-    if (data.lat < 49) data.country = "US";
-    else data.country = "CAN";
-    pendingAPICalls++;
-    $.ajax({
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        url: "/services/searchproxy.asmx/GetBusinessTypesAtLocation",
-        data: "{ search: '" + data.search + "', lat: " + data.lat + ", lng: " + data.lng + ", country: '" + data.country + "'}",
-        dataType: "json",
-        success: function (data) {
-            pendingAPICalls--;
-            var result = JSON.parse(data.d);
-            if (result.length < 5) {
-                error(stop, result);
-            }
-            else {
-                success(result, stop);
-            }
-        }, error: function () {
-            pendingAPICalls--;
-        }
-    });
-}
-
 function dropMarkersAndCalculateNextGasStop(result, stopPoint) {
     var stop = stopPoint;
     $.each(result, function (i, e) {
@@ -309,7 +279,7 @@ function recalculateCurrentGasStop(stop, result) {
     var computeResult = getCoordinateXMetersIntoTrip(stop.offset, route.legs[0].steps);
     stop.position = computeResult.position;
     stop.stepIdx = computeResult.stepIdx;
-    getGasAtStop(stop, dropMarkersAndCalculateNextGasStop, recalculateCurrentGasStop);
+    getBusinessesAtStop(stop, dropMarkersAndCalculateNextGasStop, recalculateCurrentGasStop);
 }
 
 function hasValidBusinesses(yellowPagesResult) {
@@ -333,7 +303,7 @@ function tryCreateGasStop(position, stepIdx, type, offset, success, error) {
         options: [],
         offset: offset
     };
-    getGasAtStop(stop, success, error);
+    getBusinessesAtStop(stop, success, error);
     return stop;
 }
 
