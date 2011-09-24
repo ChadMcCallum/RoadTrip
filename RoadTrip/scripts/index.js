@@ -81,6 +81,21 @@ function init() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    google.maps.event.addListener(map, 'zoom_changed', function () {
+        var zoomLevel = map.getZoom();
+        if (zoomLevel >= 14) {
+            //draw all markers
+            $.each(globalMarkerArray, function (i, e) {
+                e.setMap(map);
+            });
+        } else {
+            //remove all markers
+            $.each(globalMarkerArray, function (i, e) {
+                if(!e.primary)
+                    e.setMap(null);
+            });
+        }
+    });
 
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
@@ -137,6 +152,7 @@ var getBusinesses = function (result, stopPoint) {
         business.marker = marker;
         if (i == 0) {
             marker.setMap(map);
+            marker.primary = true;
         }
         stop.options.push(business);
     });
@@ -353,14 +369,12 @@ function getBusinessesAtStop(stop, success, error) {
         lat: stop.position.lat(),
         lng: stop.position.lng()
     };
-    if (data.lat < 49) data.country = "US";
-    else data.country = "CAN";
     pendingAPICalls++;
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
         url: "/services/searchproxy.asmx/GetBusinessTypesAtLocation",
-        data: "{ search: '" + data.search + "', lat: " + data.lat + ", lng: " + data.lng + ", country: '" + data.country + "'}",
+        data: "{ search: '" + data.search + "', lat: " + data.lat + ", lng: " + data.lng + "}",
         dataType: "json",
         success: function (data) {
             pendingAPICalls--;

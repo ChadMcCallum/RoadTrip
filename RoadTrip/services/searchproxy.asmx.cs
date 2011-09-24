@@ -17,9 +17,10 @@ namespace RoadTrip.services
     {
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public string GetBusinessTypesAtLocation(string search, double lat, double lng, string country)
+        public string GetBusinessTypesAtLocation(string search, double lat, double lng)
         {
-            if (country == "US")
+            var country = GetCountryFromCoordinates(lat, lng);
+            if (country == "USA")
             {
                 var result = GetUSABusinessTypesAtLocation(search, lat, lng);
                 return JsonConvert.SerializeObject(result);
@@ -29,6 +30,25 @@ namespace RoadTrip.services
                 var result = GetCanadaBusinessTypesAtLocation(search, lat, lng);
                 return JsonConvert.SerializeObject(result);
             }
+        }
+
+        private object GetCountryFromCoordinates(double lat, double lng)
+        {
+            WebClient client = new WebClient();
+            var address = string.Format("http://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&sensor=false", lat, lng);
+            var result = client.DownloadString(address);
+            var anon = new
+                           {
+                               results = new[]
+                                             {
+                                                 new
+                                                     {
+                                                         formatted_address = string.Empty
+                                                     }
+                                             }
+                           };
+            var data = JsonConvert.DeserializeAnonymousType(result, anon);
+            return data.results[0].formatted_address.Contains("USA") ? "USA" : "Canada";
         }
 
         private Stop[] GetUSABusinessTypesAtLocation(string search, double lat, double lng)
