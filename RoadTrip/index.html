@@ -178,17 +178,23 @@
     </script>
     <script type="text/x-jquery-tmpl" id="overlay-template">
         <div class="overlay">
-            <div class="overlay-logo">
-                <img src='${logo}' />
-            </div>
-            <div class="overlay-details">
-                <div class="name">${name}</div>
-                <div class="dispnum">1-204-111-1111</div>
-                <div class="address">
-                    <div class="street">${address.street}</div>
-                    <div class="city">${address.city}</div>, <div class="prov">${address.prov}</div>
-                    <div class="pcode">${address.pcode}</div>
+            <div class="overlay-contents">
+                <div class="overlay-logo">
+                    <img src='${logo}' />
                 </div>
+                <div class="overlay-details">
+                    <div class="name">${name}</div>
+                    <div class="dispnum">1-204-111-1111</div>
+                    <div class="address">
+                        <div class="street">${address.street}</div>
+                        <div class="city">${address.city}</div>, <div class="prov">${address.prov}</div>
+                        <div class="pcode">${address.pcode}</div>
+                    </div>
+                    <a href='http://www.google.com/' target='_blank'>Google</a>
+                </div>
+            </div>
+            <div class='overlay-type'>
+                <img src='${marker.icon.url}' />
             </div>
         </div>
     </script>

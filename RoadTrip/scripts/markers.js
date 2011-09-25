@@ -63,7 +63,7 @@ function hotelMarker(map, position, business) {
 }
 
 function addMarkerListener(marker) {
-    google.maps.event.addListener(marker, 'click', function () {
+    google.maps.event.addListener(marker, 'click', function (e) {
         var overlay = new PSOverlay(marker.position, marker.business, map);
     });
 }

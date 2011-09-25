@@ -459,6 +459,13 @@ $(document).ready(function () {
             enumerate();
         });
     });
+
+    $('.overlay-type').live('click', function () {
+        var $parent = $(this).parent('.overlay');
+        $parent.children('.overlay-contents').toggle(350, function () {
+            $parent.remove();
+        });
+    });
 });
 
 function SetMapPosition(lat, lng) {

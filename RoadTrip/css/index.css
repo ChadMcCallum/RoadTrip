@@ -118,7 +118,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   background-position: 0 -96px;
 }
 
-/* line 37, ../sass/_base.scss */
+/* line 39, ../sass/_base.scss */
 html, body {
   font-family: "Trebuchet MS";
   font-size: 1em;
@@ -127,7 +127,7 @@ html, body {
   width: 100%;
 }
 
-/* line 45, ../sass/_base.scss */
+/* line 47, ../sass/_base.scss */
 .clear {
   clear: both;
 }
@@ -278,6 +278,14 @@ html, body {
 
 /* line 98, ../sass/index.scss */
 .overlay {
+  min-width: 300px;
+  min-height: 200px;
+  left: 600px;
+  top: 350px;
+  position: absolute;
+}
+/* line 105, ../sass/index.scss */
+.overlay .overlay-contents {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   -o-border-radius: 10px;
@@ -288,89 +296,105 @@ html, body {
   -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.75);
   -o-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.75);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.75);
+  min-width: 300px;
+  min-height: 200px;
   display: none;
   background: white;
-  left: 600px;
-  top: 350px;
-  padding: 15px;
-  position: absolute;
+  padding: 20px;
 }
-/* line 108, ../sass/index.scss */
-.overlay .overlay-logo {
+/* line 114, ../sass/index.scss */
+.overlay .overlay-contents .overlay-logo {
   float: left;
   margin-right: 10px;
 }
-/* line 111, ../sass/index.scss */
-.overlay .overlay-logo img {
+/* line 117, ../sass/index.scss */
+.overlay .overlay-contents .overlay-logo img {
   max-width: 100px;
   max-height: 100px;
 }
-/* line 114, ../sass/index.scss */
-.overlay .overlay-details {
+/* line 120, ../sass/index.scss */
+.overlay .overlay-contents .overlay-details {
   float: right;
 }
-/* line 117, ../sass/index.scss */
-.overlay .overlay-details .name {
+/* line 123, ../sass/index.scss */
+.overlay .overlay-contents .overlay-details .name {
   font-size: 130%;
   margin-bottom: 5px;
 }
-/* line 118, ../sass/index.scss */
-.overlay .overlay-details .dispnum {
+/* line 124, ../sass/index.scss */
+.overlay .overlay-contents .overlay-details .dispnum {
   font-style: italics;
   margin-bottom: 10px;
 }
-/* line 120, ../sass/index.scss */
-.overlay .overlay-details .address {
+/* line 126, ../sass/index.scss */
+.overlay .overlay-contents .overlay-details .address {
   color: #58585a;
 }
-/* line 123, ../sass/index.scss */
-.overlay .overlay-details .address .city {
+/* line 129, ../sass/index.scss */
+.overlay .overlay-contents .overlay-details .address .city {
   display: inline;
 }
-/* line 124, ../sass/index.scss */
-.overlay .overlay-details .address .prov {
+/* line 130, ../sass/index.scss */
+.overlay .overlay-contents .overlay-details .address .prov {
   display: inline;
+}
+/* line 135, ../sass/index.scss */
+.overlay .overlay-type {
+  position: absolute;
+  left: -31px;
+  top: -32px;
+  cursor: pointer;
 }
 
-/* line 129, ../sass/index.scss */
+/* line 144, ../sass/index.scss */
+.ie7 .overlay-contents, .ie8 .overlay-contents {
+  border: 1px solid #010101;
+}
+/* line 147, ../sass/index.scss */
+.ie7 .overlay-contents .overlay-type, .ie8 .overlay-contents .overlay-type {
+  top: -32px;
+  left: -32px;
+}
+
+/* line 150, ../sass/index.scss */
 #first-run-dialog {
   display: none;
   text-align: center;
 }
-/* line 133, ../sass/index.scss */
+/* line 154, ../sass/index.scss */
 #first-run-dialog .content {
   margin-top: 35px;
 }
-/* line 136, ../sass/index.scss */
+/* line 157, ../sass/index.scss */
 #first-run-dialog .content > div {
   width: 45%;
 }
-/* line 139, ../sass/index.scss */
+/* line 160, ../sass/index.scss */
 #first-run-dialog .content > div input {
   width: 90%;
   margin: 15px 0px;
   padding: 2px 5px;
   height: 30px;
 }
-/* line 147, ../sass/index.scss */
+/* line 168, ../sass/index.scss */
 #first-run-dialog .content .left-div {
   float: left;
 }
-/* line 148, ../sass/index.scss */
+/* line 169, ../sass/index.scss */
 #first-run-dialog .content .right-div {
   float: right;
 }
-/* line 149, ../sass/index.scss */
+/* line 170, ../sass/index.scss */
 #first-run-dialog .content button {
   margin-top: 30px;
 }
-/* line 152, ../sass/index.scss */
+/* line 173, ../sass/index.scss */
 #first-run-dialog #form-submit {
   text-align: center;
   clear: both;
 }
 
-/* line 155, ../sass/index.scss */
+/* line 176, ../sass/index.scss */
 #detail-dialog {
   -moz-box-shadow: 3px 3px 5px rgba(100, 100, 100, 0.8);
   -webkit-box-shadow: 3px 3px 5px rgba(100, 100, 100, 0.8);
@@ -382,42 +406,42 @@ html, body {
   border: #000;
 }
 
-/* line 163, ../sass/index.scss */
+/* line 184, ../sass/index.scss */
 #advanced-div {
   overflow: hidden;
   *zoom: 1;
   font-size: 80%;
 }
-/* line 167, ../sass/index.scss */
+/* line 188, ../sass/index.scss */
 #advanced-div #advanced-show {
   cursor: pointer;
 }
-/* line 170, ../sass/index.scss */
+/* line 191, ../sass/index.scss */
 #advanced-div #advanced-show * {
   float: left;
 }
-/* line 173, ../sass/index.scss */
+/* line 194, ../sass/index.scss */
 #advanced-div #advanced-content {
   text-align: left;
 }
-/* line 176, ../sass/index.scss */
+/* line 197, ../sass/index.scss */
 #advanced-div #advanced-content .option-row {
   margin-bottom: 5px;
 }
-/* line 177, ../sass/index.scss */
+/* line 198, ../sass/index.scss */
 #advanced-div #advanced-content .option-checkbox {
   margin-right: 10px;
 }
-/* line 178, ../sass/index.scss */
+/* line 199, ../sass/index.scss */
 #advanced-div #advanced-content .instruction-text {
   width: 200px;
 }
-/* line 179, ../sass/index.scss */
+/* line 200, ../sass/index.scss */
 #advanced-div #advanced-content input[type='text'] {
   width: 75px;
 }
 
-/* line 183, ../sass/index.scss */
+/* line 204, ../sass/index.scss */
 .yellowapi {
   position: absolute;
   left: 10px;

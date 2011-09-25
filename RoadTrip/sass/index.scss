@@ -96,34 +96,55 @@
 }
 
 .overlay {
-	@include border-radius(10px);
-	@include box-shadow(rgba(black, 0.75), 5px, 5px, 10px);
-	display: none;
-	background: $overlay-color;
+	min-width: $overlay-minwidth;
+	min-height: $overlay-minheight;
 	left: 600px;
 	top: 350px;
-	padding: 15px;
 	position: absolute;
 
-	.overlay-logo {
-		float: left;
-		margin-right: 10px;
-		img { max-width: $overlay-image-width; max-height: $overlay-image-height; }
-	}
+	.overlay-contents {
+		@include border-radius(10px);
+		@include box-shadow(rgba(black, 0.75), 5px, 5px, 10px);
+		min-width: $overlay-minwidth;
+		min-height: $overlay-minheight;
+		display: none;
+		background: $overlay-color;
+		padding: 20px;
 
-	.overlay-details {
-		float: right;
+		.overlay-logo {
+			float: left;
+			margin-right: 10px;
+			img { max-width: $overlay-image-width; max-height: $overlay-image-height; }
+		}
 
-		.name { font-size: $font-size-big; margin-bottom: 5px; }
-		.dispnum { font-style: italics; margin-bottom: 10px; }
+		.overlay-details {
+			float: right;
 
-		.address {
-			color: $overlay-address-color;
+			.name { font-size: $font-size-big; margin-bottom: 5px; }
+			.dispnum { font-style: italics; margin-bottom: 10px; }
 
-			.city { display: inline; }
-			.prov { display: inline; }
+			.address {
+				color: $overlay-address-color;
+
+				.city { display: inline; }
+				.prov { display: inline; }
+			}
 		}
 	}
+
+	.overlay-type {
+		position: absolute;
+		left: -31px;
+		top: -32px;
+		cursor: pointer;
+	}
+}
+
+	
+.ie7 .overlay-contents, .ie8 .overlay-contents {
+	border: 1px solid lighten(black, .35);
+
+	.overlay-type { top: -32px; left: -32px; }
 }
 
 #first-run-dialog {

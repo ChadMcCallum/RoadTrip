@@ -79,8 +79,8 @@ PSOverlay.prototype.onAdd = function () {
     // We add an overlay to a map via one of the map's panes.
     // We'll add this overlay to the overlayImage pane.
     var panes = this.getPanes();
-    $(panes.overlayImage).append(div);
-    div.toggle(350);
+    $(panes.floatPane).append(div);
+    div.children('.overlay-contents').toggle(350);
 };
 
 PSOverlay.prototype.draw = function () {
