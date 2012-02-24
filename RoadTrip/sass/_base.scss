@@ -29,7 +29,7 @@ $overlay-minwidth: 300px;
 $overlay-minheight: 200px;
 $overlay-address-color: #58585A;
 
-$option-key-width: 15px;
+$option-key-width: 32px;
 $option-remove-width: 15px;
 
 @mixin clickable {
@@ -46,4 +46,9 @@ html, body {
 
 .clear {
 	clear: both;
+}
+
+li {
+	list-style: none;
+    list-style-image: none;
 }

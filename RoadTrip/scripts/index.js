@@ -402,9 +402,17 @@ var $sidebar = $('.sidebar');
 var $header = $('.header');
 
 function enumerate() {
+    var count = 0;
+
     $("#parameters .input-row").each(function (i, el) {
         $(".option-key", el).html(i + 1);
+        count++;
     });
+
+    if (count > 2)
+        $("#destinations .option-remove").show();
+    else
+        $("#destinations .option-remove").hide();
 }
 
 $(document).ready(function () {
@@ -433,10 +441,16 @@ $(document).ready(function () {
                 $(this).val("Destination...");
         }
     });
+
+    var originInput = $(".input-row:first");
+
     var urlOrigin = getParameterByName("o");
-    if (urlOrigin) $('#input-origin').val(urlOrigin);
+    if (urlOrigin) originInput.find(".option-value input").val(urlOrigin);
+
     var urlDestination = getParameterByName("d");
-    if (urlDestination) $('#input-destination').val(urlDestination);
+    if (urlDestination) originInput.next().find(".option-value input").val(urlDestination);
+
+    $('#destinations').sortable({ stop: enumerate });
 
     $('#dialog-submit').click(function () {
         var url = "index.html?" +
@@ -448,7 +462,7 @@ $(document).ready(function () {
 
     $('#add-destination').click(function () {
         var newRow = $($("#destination-row").html());
-        $("#parameters > .option-row").before(newRow);
+        $("#destinations").append(newRow).sortable("refresh");
         enumerate();
         newRow.slideToggle();
     });
@@ -466,6 +480,7 @@ $(document).ready(function () {
             $parent.remove();
         });
     });
+
 });
 
 function SetMapPosition(lat, lng) {

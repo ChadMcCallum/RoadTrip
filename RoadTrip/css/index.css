@@ -93,29 +93,34 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   background-position: 0 -256px;
 }
 
-/* line 45, icons-small */
-.icons-small-sprite, .icons-small-food, .icons-small-gas, .icons-small-hotels, .icons-small-other {
-  background: url('/images/icons-small-s7df6d54cc8.png') no-repeat;
+/* line 51, icons-small */
+.icons-small-sprite, .icons-small-blank, .icons-small-food, .icons-small-gas, .icons-small-hotels, .icons-small-other {
+  background: url('/images/icons-small-s060d357cd2.png') no-repeat;
 }
 
 /* line 60, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
-.icons-small-food {
+.icons-small-blank {
   background-position: 0 0;
 }
 
 /* line 60, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
-.icons-small-gas {
+.icons-small-food {
   background-position: 0 -32px;
 }
 
 /* line 60, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
-.icons-small-hotels {
+.icons-small-gas {
   background-position: 0 -64px;
 }
 
 /* line 60, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
-.icons-small-other {
+.icons-small-hotels {
   background-position: 0 -96px;
+}
+
+/* line 60, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-small-other {
+  background-position: 0 -128px;
 }
 
 /* line 39, ../sass/_base.scss */
@@ -130,6 +135,12 @@ html, body {
 /* line 47, ../sass/_base.scss */
 .clear {
   clear: both;
+}
+
+/* line 51, ../sass/_base.scss */
+li {
+  list-style: none;
+  list-style-image: none;
 }
 
 /* line 3, ../sass/index.scss */
@@ -191,8 +202,9 @@ html, body {
   *zoom: 1;
   margin-bottom: 5px;
   position: relative;
-  height: 30px;
-  line-height: 30px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
 }
 /* line 38, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 .sidebar > #side-content #parameters .option-row:after, .sidebar > #side-content #parameters .input-row:after {
@@ -200,74 +212,76 @@ html, body {
   display: table;
   clear: both;
 }
-/* line 48, ../sass/index.scss */
+/* line 49, ../sass/index.scss */
 .sidebar > #side-content #parameters .option-row > div, .sidebar > #side-content #parameters .input-row > div {
   position: absolute;
 }
-/* line 49, ../sass/index.scss */
+/* line 50, ../sass/index.scss */
 .sidebar > #side-content #parameters .option-row .option-key, .sidebar > #side-content #parameters .input-row .option-key {
-  width: 15px;
+  width: 32px;
+  margin-right: 15px;
   left: 0px;
   cursor: move;
+  color: white;
 }
-/* line 54, ../sass/index.scss */
+/* line 57, ../sass/index.scss */
 .sidebar > #side-content #parameters .option-row .option-value, .sidebar > #side-content #parameters .input-row .option-value {
-  left: 15px;
+  left: 47px;
   right: 25px;
 }
-/* line 58, ../sass/index.scss */
+/* line 61, ../sass/index.scss */
 .sidebar > #side-content #parameters .option-row .option-value input, .sidebar > #side-content #parameters .input-row .option-value input {
   width: 100%;
 }
-/* line 59, ../sass/index.scss */
+/* line 62, ../sass/index.scss */
 .sidebar > #side-content #parameters .option-row .option-value span, .sidebar > #side-content #parameters .input-row .option-value span {
   cursor: pointer;
   color: blue;
   font-size: 75%;
 }
-/* line 64, ../sass/index.scss */
+/* line 67, ../sass/index.scss */
 .sidebar > #side-content #parameters .option-row .option-value span:hover, .sidebar > #side-content #parameters .input-row .option-value span:hover {
   text-decoration: underline;
 }
-/* line 65, ../sass/index.scss */
+/* line 68, ../sass/index.scss */
 .sidebar > #side-content #parameters .option-row .option-value span#add-destination, .sidebar > #side-content #parameters .input-row .option-value span#add-destination {
   float: left;
 }
-/* line 66, ../sass/index.scss */
+/* line 69, ../sass/index.scss */
 .sidebar > #side-content #parameters .option-row .option-value span#more-options, .sidebar > #side-content #parameters .input-row .option-value span#more-options {
   float: right;
 }
-/* line 69, ../sass/index.scss */
+/* line 72, ../sass/index.scss */
 .sidebar > #side-content #parameters .option-row .option-remove, .sidebar > #side-content #parameters .input-row .option-remove {
   width: 15px;
   top: 8px;
   right: 0px;
   vertical-align: middle;
 }
-/* line 74, ../sass/index.scss */
+/* line 77, ../sass/index.scss */
 .sidebar > #side-content #parameters .option-row .option-remove span, .sidebar > #side-content #parameters .input-row .option-remove span {
   cursor: pointer;
 }
-/* line 79, ../sass/index.scss */
+/* line 82, ../sass/index.scss */
 .sidebar > #side-content #form-submit {
   margin-top: 15px;
   float: right;
 }
 
-/* line 84, ../sass/index.scss */
+/* line 87, ../sass/index.scss */
 .ie7 .sidebar > #side-content #parameters .option-row > div, .ie7 .sidebar > #side-content #parameters .input-row > div {
   display: inline;
 }
-/* line 85, ../sass/index.scss */
+/* line 88, ../sass/index.scss */
 .ie7 .sidebar > #side-content #parameters .option-row .option-value, .ie7 .sidebar > #side-content #parameters .input-row .option-value {
   top: 4px;
 }
-/* line 86, ../sass/index.scss */
+/* line 89, ../sass/index.scss */
 .ie7 .sidebar > #side-content #parameters .option-row .option-remove, .ie7 .sidebar > #side-content #parameters .input-row .option-remove {
   padding-left: 7px;
 }
 
-/* line 90, ../sass/index.scss */
+/* line 93, ../sass/index.scss */
 #map_canvas {
   position: absolute;
   top: 40px;
@@ -276,7 +290,7 @@ html, body {
   right: 0px;
 }
 
-/* line 98, ../sass/index.scss */
+/* line 101, ../sass/index.scss */
 .overlay {
   min-width: 300px;
   min-height: 200px;
@@ -284,7 +298,7 @@ html, body {
   top: 350px;
   position: absolute;
 }
-/* line 105, ../sass/index.scss */
+/* line 108, ../sass/index.scss */
 .overlay .overlay-contents {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -292,109 +306,115 @@ html, body {
   -ms-border-radius: 10px;
   -khtml-border-radius: 10px;
   border-radius: 10px;
-  -moz-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.75);
-  -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.75);
-  -o-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.75);
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.75);
+  -o-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.75);
   min-width: 300px;
   min-height: 200px;
   display: none;
   background: white;
   padding: 20px;
 }
-/* line 114, ../sass/index.scss */
+/* line 117, ../sass/index.scss */
 .overlay .overlay-contents .overlay-logo {
   float: left;
   margin-right: 10px;
 }
-/* line 117, ../sass/index.scss */
+/* line 120, ../sass/index.scss */
 .overlay .overlay-contents .overlay-logo img {
   max-width: 100px;
   max-height: 100px;
 }
-/* line 120, ../sass/index.scss */
+/* line 123, ../sass/index.scss */
 .overlay .overlay-contents .overlay-details {
   float: right;
 }
-/* line 123, ../sass/index.scss */
+/* line 126, ../sass/index.scss */
 .overlay .overlay-contents .overlay-details .name {
   font-size: 130%;
   margin-bottom: 5px;
 }
-/* line 124, ../sass/index.scss */
+/* line 127, ../sass/index.scss */
 .overlay .overlay-contents .overlay-details .dispnum {
   font-style: italics;
   margin-bottom: 10px;
 }
-/* line 126, ../sass/index.scss */
+/* line 129, ../sass/index.scss */
 .overlay .overlay-contents .overlay-details .address {
   color: #58585a;
 }
-/* line 129, ../sass/index.scss */
+/* line 132, ../sass/index.scss */
 .overlay .overlay-contents .overlay-details .address .city {
   display: inline;
 }
-/* line 130, ../sass/index.scss */
+/* line 133, ../sass/index.scss */
 .overlay .overlay-contents .overlay-details .address .prov {
   display: inline;
 }
-/* line 135, ../sass/index.scss */
+/* line 138, ../sass/index.scss */
 .overlay .overlay-type {
+  -moz-border-radius: 2plk;
+  -webkit-border-radius: 2plk;
+  -o-border-radius: 2plk;
+  -ms-border-radius: 2plk;
+  -khtml-border-radius: 2plk;
+  border-radius: 2plk;
   position: absolute;
   left: -31px;
   top: -32px;
   cursor: pointer;
 }
 
-/* line 144, ../sass/index.scss */
+/* line 152, ../sass/index.scss */
 .ie7 .overlay-contents, .ie8 .overlay-contents {
   border: 1px solid #010101;
 }
-/* line 147, ../sass/index.scss */
+/* line 155, ../sass/index.scss */
 .ie7 .overlay-contents .overlay-type, .ie8 .overlay-contents .overlay-type {
   top: -32px;
   left: -32px;
 }
 
-/* line 150, ../sass/index.scss */
+/* line 158, ../sass/index.scss */
 #first-run-dialog {
   display: none;
   text-align: center;
 }
-/* line 154, ../sass/index.scss */
+/* line 162, ../sass/index.scss */
 #first-run-dialog .content {
   margin-top: 35px;
 }
-/* line 157, ../sass/index.scss */
+/* line 165, ../sass/index.scss */
 #first-run-dialog .content > div {
   width: 45%;
 }
-/* line 160, ../sass/index.scss */
+/* line 168, ../sass/index.scss */
 #first-run-dialog .content > div input {
   width: 90%;
   margin: 15px 0px;
   padding: 2px 5px;
   height: 30px;
 }
-/* line 168, ../sass/index.scss */
+/* line 176, ../sass/index.scss */
 #first-run-dialog .content .left-div {
   float: left;
 }
-/* line 169, ../sass/index.scss */
+/* line 177, ../sass/index.scss */
 #first-run-dialog .content .right-div {
   float: right;
 }
-/* line 170, ../sass/index.scss */
+/* line 178, ../sass/index.scss */
 #first-run-dialog .content button {
   margin-top: 30px;
 }
-/* line 173, ../sass/index.scss */
+/* line 181, ../sass/index.scss */
 #first-run-dialog #form-submit {
   text-align: center;
   clear: both;
 }
 
-/* line 176, ../sass/index.scss */
+/* line 184, ../sass/index.scss */
 #detail-dialog {
   -moz-box-shadow: 3px 3px 5px rgba(100, 100, 100, 0.8);
   -webkit-box-shadow: 3px 3px 5px rgba(100, 100, 100, 0.8);
@@ -406,44 +426,47 @@ html, body {
   border: #000;
 }
 
-/* line 184, ../sass/index.scss */
+/* line 192, ../sass/index.scss */
 #advanced-div {
   overflow: hidden;
   *zoom: 1;
   font-size: 80%;
 }
-/* line 188, ../sass/index.scss */
+/* line 196, ../sass/index.scss */
 #advanced-div #advanced-show {
   cursor: pointer;
 }
-/* line 191, ../sass/index.scss */
+/* line 199, ../sass/index.scss */
 #advanced-div #advanced-show * {
   float: left;
 }
-/* line 194, ../sass/index.scss */
+/* line 202, ../sass/index.scss */
 #advanced-div #advanced-content {
   text-align: left;
 }
-/* line 197, ../sass/index.scss */
+/* line 205, ../sass/index.scss */
 #advanced-div #advanced-content .option-row {
   margin-bottom: 5px;
 }
-/* line 198, ../sass/index.scss */
+/* line 206, ../sass/index.scss */
 #advanced-div #advanced-content .option-checkbox {
   margin-right: 10px;
 }
-/* line 199, ../sass/index.scss */
+/* line 207, ../sass/index.scss */
 #advanced-div #advanced-content .instruction-text {
   width: 200px;
 }
-/* line 200, ../sass/index.scss */
+/* line 208, ../sass/index.scss */
 #advanced-div #advanced-content input[type='text'] {
   width: 75px;
 }
 
-/* line 204, ../sass/index.scss */
+/* line 212, ../sass/index.scss */
 .yellowapi {
+  padding: 5px;
   position: absolute;
   left: 10px;
   bottom: 10px;
+  background: white;
+  border: 1px solid #EEEEEE;
 }

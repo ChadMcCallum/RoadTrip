@@ -4,6 +4,7 @@
 <!--[if IE 8]><html class="ie8"><![endif]-->
 <!--[if IE 9]><html class="ie9"><![endif]-->
 <!--[if !IE]><html><![endif]-->
+    <head>
         <title>PitStops.ca</title>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
@@ -28,16 +29,18 @@
 
             <div id="side-content">
                 <div id="parameters">
-                    <div class="input-row">
-                        <div class="option-key">1</div>
-                        <div class="option-value"><input type="text" /></div>
-                        <div class="option-remove"><span class="ui-icon ui-icon-close"></span></div>
-                    </div>
-                    <div class="input-row">
-                        <div class="option-key">2</div>
-                        <div class="option-value"><input type="text" /></div>
-                        <div class="option-remove"><span class="ui-icon ui-icon-close"></span></div>
-                    </div>
+                    <ul id="destinations">
+                        <li class="input-row">
+                            <div class="option-key icons-small-sprite icons-small-blank">1</div>
+                            <div class="option-value"><input type="text" /></div>
+                            <div class="option-remove"><span class="ui-icon ui-icon-close"></span></div>
+                        </li>
+                        <li class="input-row">
+                            <div class="option-key icons-small-sprite icons-small-blank">2</div>
+                            <div class="option-value"><input type="text" /></div>
+                            <div class="option-remove"><span class="ui-icon ui-icon-close"></span></div>
+                        </li>
+                    </ul>
 
                     <div class="option-row">
                         <div class="option-key">&nbsp;</div>
@@ -102,11 +105,11 @@
     <script type="text/javascript" src="//documentcloud.github.com/underscore/underscore.js"></script>
 
     <script type='text/x-jquery-tmpl' id='destination-row'>
-        <div class="input-row" style="display:none;">
-            <div class="option-key">&nbsp;</div>
+        <li class="input-row" style="display:none;">
+            <div class="option-key icons-small-sprite icons-small-blank">&nbsp;</div>
             <div class="option-value"><input type="text" /></div>
             <div class="option-remove"><span class="ui-icon ui-icon-close"></span></div>
-        </div>
+        </li>
     </script>
 
     <script type='text/x-jquery-tmpl' id='step-template'>

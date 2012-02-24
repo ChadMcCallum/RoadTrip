@@ -70,6 +70,7 @@
     <Content Include="css\index.css" />
     <Content Include="css\jquery-ui-1.8.16.custom.css" />
     <Content Include="css\jquery.css" />
+    <Content Include="images\icons-small\blank.png" />
     <Content Include="images\icons-small\food.png" />
     <Content Include="images\icons-small\gas.png" />
     <Content Include="images\icons-small\hotels.png" />
@@ -101,7 +102,6 @@
       <DependentUpon>index.scss</DependentUpon>
     </Content>
     <Content Include="scripts\index.js" />
-    <Content Include="scripts\index-page.js" />
     <Content Include="scripts\maps.js" />
     <Content Include="scripts\common.js" />
     <Content Include="services\searchproxy.asmx" />
